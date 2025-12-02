@@ -1,0 +1,320 @@
+{
+  "temas": [
+    { 
+      "id": 1, 
+      "nombre": "Introducción a JavaScript", 
+      "progreso": "completado", 
+      "duracion": "30 min",
+      "videoId": "EfAl9bwzVZk"
+    },
+    { 
+      "id": 2, 
+      "nombre": "Variables y Tipos de Datos", 
+      "progreso": "completado", 
+      "duracion": "45 min",
+      "videoId": "W6NZfCO5SIk"
+    },
+    { 
+      "id": 3, 
+      "nombre": "Operadores y Expresiones", 
+      "progreso": "completado", 
+      "duracion": "40 min",
+      "videoId": "qGwR_PBf-HU"
+    },
+    { 
+      "id": 4, 
+      "nombre": "Estructuras de Control", 
+      "progreso": "completado", 
+      "duracion": "60 min",
+      "videoId": "S1ZXSoAxEBg"
+    },
+    { 
+      "id": 5, 
+      "nombre": "Funciones", 
+      "progreso": "completado", 
+      "duracion": "75 min",
+      "videoId": "XgNhf-ULYyE"
+    },
+    { 
+      "id": 6, 
+      "nombre": "Arrays y Métodos", 
+      "progreso": "completado", 
+      "duracion": "65 min",
+      "videoId": "q8SHaDQdul0"
+    },
+    { 
+      "id": 7, 
+      "nombre": "Objetos y POO", 
+      "progreso": "completado", 
+      "duracion": "80 min",
+      "videoId": "PFmuCDHHpwk"
+    },
+    { 
+      "id": 8, 
+      "nombre": "DOM Manipulation", 
+      "progreso": "completado", 
+      "duracion": "90 min",
+      "videoId": "y17RuWkWdn8"
+    },
+    { 
+      "id": 9, 
+      "nombre": "Eventos", 
+      "progreso": "completado", 
+      "duracion": "55 min",
+      "videoId": "W67jef-7aYw"
+    },
+    { 
+      "id": 10, 
+      "nombre": "ES6+ Features", 
+      "progreso": "completado", 
+      "duracion": "70 min",
+      "videoId": "NCwa_xi0Uuc"
+    },
+    { 
+      "id": 11, 
+      "nombre": "Async/Await y Promesas", 
+      "progreso": "completado", 
+      "duracion": "85 min",
+      "videoId": "vn3tm0quoqE"
+    },
+    { 
+      "id": 12, 
+      "nombre": "Módulos y Import/Export", 
+      "progreso": "completado", 
+      "duracion": "40 min",
+      "videoId": "cRHQNNcYqXY"
+    },
+    { 
+      "id": 13, 
+      "nombre": "Error Handling", 
+      "progreso": "completado", 
+      "duracion": "35 min",
+      "videoId": "YeFzkC2awTM"
+    },
+    { 
+      "id": 14, 
+      "nombre": "Fetch API y AJAX", 
+      "progreso": "completado", 
+      "duracion": "50 min",
+      "videoId": "cuEtnrL9-H0"
+    },
+    { 
+      "id": 15, 
+      "nombre": "LocalStorage y SessionStorage", 
+      "progreso": "completado", 
+      "duracion": "30 min",
+      "videoId": "GihQAC1I39Q"
+    },
+    { 
+      "id": 16, 
+      "nombre": "JSON Manipulation", 
+      "progreso": "completado", 
+      "duracion": "35 min",
+      "videoId": "IIzicN7oybE"
+    },
+    { 
+      "id": 17, 
+      "nombre": "Dates y Timers", 
+      "progreso": "completado", 
+      "duracion": "40 min",
+      "videoId": "eKqY-oP1d_Y"
+    },
+    { 
+      "id": 18, 
+      "nombre": "Regular Expressions", 
+      "progreso": "completado", 
+      "duracion": "55 min",
+      "videoId": "rhzKDrUiJVk"
+    },
+    { 
+      "id": 19, 
+      "nombre": "Debugging y DevTools", 
+      "progreso": "completado", 
+      "duracion": "45 min",
+      "videoId": "H0XScE08hy8"
+    },
+    { 
+      "id": 20, 
+      "nombre": "Closures y Scope", 
+      "progreso": "completado", 
+      "duracion": "50 min",
+      "videoId": "1JsJx1x35c0"
+    },
+    { 
+      "id": 21, 
+      "nombre": "Prototypes y Herencia", 
+      "progreso": "completado", 
+      "duracion": "60 min",
+      "videoId": "wKJcKDF8zwE"
+    },
+    { 
+      "id": 22, 
+      "nombre": "Callbacks y Event Loop", 
+      "progreso": "completado", 
+      "duracion": "65 min",
+      "videoId": "8aGhZQkoFbQ"
+    },
+    { 
+      "id": 23, 
+      "nombre": "ES6 Classes", 
+      "progreso": "completado", 
+      "duracion": "45 min",
+      "videoId": "RBLIm5LMrmc"
+    },
+    { 
+      "id": 24, 
+      "nombre": "Destructuring", 
+      "progreso": "completado", 
+      "duracion": "35 min",
+      "videoId": "NIq3qLaHCIs"
+    },
+    { 
+      "id": 25, 
+      "nombre": "Spread Operator y Rest Parameters", 
+      "progreso": "completado", 
+      "duracion": "40 min",
+      "videoId": "iLx4ma8ZqvQ"
+    },
+    { 
+      "id": 26, 
+      "nombre": "Template Literals", 
+      "progreso": "completado", 
+      "duracion": "25 min",
+      "videoId": "QNhrY3B-Lyo"
+    },
+    { 
+      "id": 27, 
+      "nombre": "Arrow Functions", 
+      "progreso": "completado", 
+      "duracion": "30 min",
+      "videoId": "h33Srr5J9nY"
+    },
+    { 
+      "id": 28, 
+      "nombre": "Map, Set, WeakMap, WeakSet", 
+      "progreso": "completado", 
+      "duracion": "45 min",
+      "videoId": "ycohKx8c5-0"
+    },
+    { 
+      "id": 29, 
+      "nombre": "Promises Avanzadas", 
+      "progreso": "completado", 
+      "duracion": "55 min",
+      "videoId": "QO4NXhWo_NM"
+    },
+    { 
+      "id": 30, 
+      "nombre": "Generators", 
+      "progreso": "completado", 
+      "duracion": "40 min",
+      "videoId": "IJ6EgdiI_wU"
+    },
+    { 
+      "id": 31, 
+      "nombre": "Proxies y Reflection", 
+      "progreso": "completado", 
+      "duracion": "50 min",
+      "videoId": "t4ZEKD3lMbM"
+    },
+    { 
+      "id": 32, 
+      "nombre": "Web Components", 
+      "progreso": "completado", 
+      "duracion": "70 min",
+      "videoId": "PCWaFLy3VUo"
+    },
+    { 
+      "id": 33, 
+      "nombre": "Service Workers", 
+      "progreso": "completado", 
+      "duracion": "65 min",
+      "videoId": "ksXwaWHCW6k"
+    },
+    { 
+      "id": 34, 
+      "nombre": "IndexedDB", 
+      "progreso": "completado", 
+      "duracion": "60 min",
+      "videoId": "g4U5WRzHitM"
+    },
+    { 
+      "id": 35, 
+      "nombre": "Web Sockets", 
+      "progreso": "completado", 
+      "duracion": "55 min",
+      "videoId": "8ARodQ4Wlf4"
+    },
+    { 
+      "id": 36, 
+      "nombre": "Web Workers", 
+      "progreso": "completado", 
+      "duracion": "45 min",
+      "videoId": "GZ2n6OW-5xY"
+    },
+    { 
+      "id": 37, 
+      "nombre": "Performance Optimization", 
+      "progreso": "completado", 
+      "duracion": "75 min",
+      "videoId": "YJGCZCaIZkQ"
+    },
+    { 
+      "id": 38, 
+      "nombre": "Security Best Practices", 
+      "progreso": "completado", 
+      "duracion": "50 min",
+      "videoId": "EYzA4Y_gkBU"
+    },
+    { 
+      "id": 39, 
+      "nombre": "Testing con Jest", 
+      "progreso": "completado", 
+      "duracion": "80 min",
+      "videoId": "ajiAl5UNzBU"
+    },
+    { 
+      "id": 40, 
+      "nombre": "Patrones de Diseño", 
+      "progreso": "completado", 
+      "duracion": "90 min",
+      "videoId": "kuirGzhGhyw"
+    },
+    { 
+      "id": 41, 
+      "nombre": "Algoritmos y Estructuras de Datos", 
+      "progreso": "completado", 
+      "duracion": "120 min",
+      "videoId": "t2CEgPsws3U"
+    },
+    { 
+      "id": 42, 
+      "nombre": "Functional Programming", 
+      "progreso": "completado", 
+      "duracion": "85 min",
+      "videoId": "e-5obm1G_FY"
+    },
+    { 
+      "id": 43, 
+      "nombre": "TypeScript Fundamentals", 
+      "progreso": "completado", 
+      "duracion": "95 min",
+      "videoId": "d56mG7DezGs"
+    },
+    { 
+      "id": 44, 
+      "nombre": "Node.js Básico", 
+      "progreso": "completado", 
+      "duracion": "100 min",
+      "videoId": "TlB_eWDSMt4"
+    },
+    { 
+      "id": 45, 
+      "nombre": "Proyecto Final Integrador", 
+      "progreso": "completado", 
+      "duracion": "180 min",
+      "videoId": "GJYMcLus3v0"
+    }
+  ]
+}
+

@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primario: #2563eb;
+  --color-primario-oscuro: #1d4ed8;
+  --color-exito: #16a34a;
+  --color-advertencia: #d97706;
+  --color-error: #dc2626;
+  --fondo-oscuro: #0f172a;
+  --fondo-panel: #1e293b;
+  --fondo-encabezado: #334155;
+  --texto-claro: #f8fafc;
+  --texto-atemperado: #94a3b8;
+  --color-borde: #475569;
+  --color-redimensionador: #475569;
+  --color-redimensionador-hover: #60a5fa;
+  --ancho-sidebar: 300px;
+  --fondo-sidebar: #1a2435;
+  --ancho-sidebar-derecho: 350px;
+}
+
+.modo-claro {
+  --color-primario: #3b82f6;
+  --color-primario-oscuro: #2563eb;
+  --color-exito: #16a34a;
+  --color-advertencia: #d97706;
+  --color-error: #dc2626;
+  --fondo-oscuro: #f8fafc;
+  --fondo-panel: #ffffff;
+  --fondo-encabezado: #e2e8f0;
+  --texto-claro: #1e293b;
+  --texto-atemperado: #64748b;
+  --color-borde: #cbd5e1;
+  --color-redimensionador: #94a3b8;
+  --color-redimensionador-hover: #3b82f6;
+  --fondo-sidebar: #f1f5f9;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--fondo-oscuro);
+  color: var(--texto-claro);
+  overflow: hidden;
+  height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.aplicacion {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenedor-principal {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-oscuro);
+  width: 100%;
+  height: 100%;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--fondo-panel);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-borde);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-redimensionador-hover);
+}
+
+body.redimensionando {
+  cursor: col-resize !important;
+}
+
+body.redimensionando-vertical {
+  cursor: row-resize !important;
+}
+
+@media (max-width: 768px) {
+  .contenedor-principal {
+    flex-direction: column;
+  }
+}

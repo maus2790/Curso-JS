@@ -1,0 +1,103 @@
+.redimensionador {
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.redimensionador:hover {
+  background: rgba(96, 165, 250, 0.2);
+}
+
+.redimensionador:active {
+  background: rgba(96, 165, 250, 0.4);
+}
+
+/* Resizer vertical (entre columnas) */
+.redimensionador-col {
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  left: calc(var(--posicion-col) - 4px);
+}
+
+/* Resizers horizontales (dentro de columnas) */
+.redimensionador-fila1,
+.redimensionador-fila2 {
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: row-resize;
+}
+
+.redimensionador-fila1 {
+  top: calc(var(--posicion-fila1) - 4px);
+  z-index: 101;
+}
+
+.redimensionador-fila2 {
+  top: calc(var(--posicion-fila2) - 4px);
+  z-index: 101;
+}
+
+.linea-redimensionador {
+  background: var(--color-redimensionador);
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+
+/* Línea para resizer vertical (columnas) */
+.redimensionador-col .linea-redimensionador {
+  width: 2px;
+  height: 60px;
+  border-radius: 1px;
+}
+
+/* Línea para resizers horizontales (filas) */
+.redimensionador-fila1 .linea-redimensionador,
+.redimensionador-fila2 .linea-redimensionador {
+  height: 2px;
+  width: 60px;
+  border-radius: 1px;
+}
+
+.redimensionador:hover .linea-redimensionador {
+  background: var(--color-redimensionador-hover);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+}
+
+.redimensionador:active .linea-redimensionador {
+  background: var(--color-redimensionador-active);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.8);
+}
+
+/* Modo oscuro */
+.modo-oscuro .redimensionador:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.modo-oscuro .redimensionador:active {
+  background: rgba(59, 130, 246, 0.4);
+}
+
+.modo-oscuro .linea-redimensionador {
+  background: #4b5563;
+}
+
+.modo-oscuro .redimensionador:hover .linea-redimensionador {
+  background: #60a5fa;
+}
+
+.modo-oscuro .redimensionador:active .linea-redimensionador {
+  background: #3b82f6;
+}
+
+@media (max-width: 768px) {
+  .redimensionador {
+    display: none;
+  }
+}

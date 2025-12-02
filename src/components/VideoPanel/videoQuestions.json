@@ -1,0 +1,30 @@
+{
+  "preguntas": [
+    {
+      "videoId": "abc123",
+      "timestamp": 5,
+      "pregunta": "¿Qué es una variable en JavaScript?",
+      "opciones": [
+        "Un contenedor para almacenar datos",
+        "Un tipo de función",
+        "Un método de array", 
+        "Una palabra reservada"
+      ],
+      "respuestaCorrecta": 0,
+      "explicacion": "Una variable es un contenedor que almacena valores de datos."
+    },
+    {
+      "videoId": "abc123",
+      "timestamp": 10,
+      "pregunta": "¿Cómo se declara una variable en ES6?",
+      "opciones": [
+        "var, let y const",
+        "solo var",
+        "solo let",
+        "solo const"
+      ],
+      "respuestaCorrecta": 0,
+      "explicacion": "En ES6 se introdujeron let y const además de var."
+    }
+  ]
+}

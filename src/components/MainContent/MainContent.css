@@ -1,0 +1,114 @@
+.contenido-principal {
+  flex: 1;
+  transition: margin 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+}
+
+.contenedor-principal-interno {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  background: var(--fondo-oscuro);
+  width: 100%;
+  height: 100%;
+}
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.columna-1 {
+  border-right: 1px solid var(--color-borde);
+}
+
+/* Estilos para los paneles dentro de las columnas */
+.columna > div:not(.redimensionador) {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Asegurar que los resizers estén por encima del contenido */
+.redimensionador {
+  z-index: 100;
+}
+
+.redimensionador-col {
+  cursor: col-resize;
+}
+
+.redimensionador-fila1,
+.redimensionador-fila2 {
+  cursor: row-resize;
+}
+
+/* Efectos hover para mejor UX */
+.redimensionador:hover {
+  background: rgba(96, 165, 250, 0.2);
+}
+
+.redimensionador:active {
+  background: rgba(96, 165, 250, 0.4);
+}
+
+@media (max-width: 768px) {
+  .contenido-principal {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  .columna {
+    width: 100% !important;
+    height: 50% !important;
+  }
+  
+  .columna-1 {
+    border-right: none;
+    border-bottom: 1px solid var(--color-borde);
+  }
+
+  .redimensionador {
+    display: none;
+  }
+}
+
+.sin-paneles-mensaje {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  color: var(--texto-secundario, #a0aec0);
+  padding: 2rem;
+  margin: auto;
+}
+
+.sin-paneles-mensaje h3 {
+  margin-bottom: 1rem;
+  color: var(--texto-principal, #e2e8f0);
+}
+
+.redimensionador.inactivo {
+  display: none;
+}
+
+/* Asegurar que las columnas se ajusten correctamente */
+.columna {
+  transition: width 0.2s ease;
+}
+
+/* Estilos para cuando solo hay una columna */
+.contenedor-principal-interno:has(.columna-1:only-child) .columna-1 {
+  width: 100% !important;
+}
+
+.contenedor-principal-interno:has(.columna-2:only-child) .columna-2 {
+  width: 100% !important;
+}

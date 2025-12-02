@@ -1,0 +1,242 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+}
+
+.question-modal {
+  background: var(--fondo-panel);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--color-borde);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-borde);
+  background: var(--fondo-encabezado);
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--texto-claro);
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--texto-atemperado);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--color-error);
+  color: white;
+}
+
+.modal-content {
+  padding: 24px;
+}
+
+.pregunta-texto {
+  margin-bottom: 24px;
+}
+
+.pregunta-texto p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--texto-claro);
+  font-weight: 500;
+}
+
+.opciones-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.opcion-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--fondo-panel);
+  border: 2px solid var(--color-borde);
+  border-radius: 8px;
+  color: var(--texto-claro);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.opcion-btn:hover:not(:disabled) {
+  border-color: var(--color-primario);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.opcion-btn.seleccionada {
+  border-color: var(--color-primario);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.opcion-btn.correcta {
+  border-color: var(--color-exito);
+  background: rgba(22, 163, 74, 0.1);
+}
+
+.opcion-btn.incorrecta {
+  border-color: var(--color-error);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.opcion-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.opcion-indice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-borde);
+  border-radius: 50%;
+  margin-right: 12px;
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.opcion-btn.seleccionada .opcion-indice {
+  background: var(--color-primario);
+  color: white;
+}
+
+.opcion-btn.correcta .opcion-indice {
+  background: var(--color-exito);
+  color: white;
+}
+
+.opcion-btn.incorrecta .opcion-indice {
+  background: var(--color-error);
+  color: white;
+}
+
+.opcion-texto {
+  flex: 1;
+  font-size: 14px;
+}
+
+.resultado {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.resultado.correcto {
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid var(--color-exito);
+}
+
+.resultado.incorrecto {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--color-error);
+}
+
+.resultado-icono {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.resultado-texto p {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.resultado.correcto .resultado-texto p:first-child {
+  color: var(--color-exito);
+}
+
+.resultado.incorrecto .resultado-texto p:first-child {
+  color: var(--color-error);
+}
+
+.explicacion {
+  font-size: 14px;
+  color: var(--texto-atemperado);
+  font-weight: normal !important;
+  margin: 0;
+}
+
+.modal-actions {
+  padding: 0 24px 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-enviar, .btn-continuar {
+  padding: 12px 32px;
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.btn-enviar:hover:not(:disabled), .btn-continuar:hover {
+  background: var(--color-primario-oscuro);
+  transform: translateY(-1px);
+}
+
+.btn-enviar:disabled {
+  background: var(--color-borde);
+  cursor: not-allowed;
+  transform: none;
+}

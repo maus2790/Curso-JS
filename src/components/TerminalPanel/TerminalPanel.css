@@ -1,0 +1,129 @@
+/* TerminalPanel.css */
+
+.panel-terminal {
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-terminal .contenido-panel {
+  background: var(--fondo-oscuro);
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.acciones-terminal {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.boton-cambio-modo {
+  background: var(--color-primario);
+  color: var(--texto-principal);
+  border: 1px solid var(--borde-panel);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.boton-cambio-modo:hover {
+  background: var(--color-primario-suave);
+  border-color: var(--color-primario);
+}
+
+.boton-cambio-modo.activo {
+  background: var(--color-primario);
+  color: white;
+  border-color: var(--color-primario);
+}
+
+.estado-ejecucion {
+  font-size: 0.75rem;
+  color: var(--texto-atemperado);
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  background: var(--fondo-badge);
+  border-radius: 12px;
+}
+
+.boton-limpiar {
+  background: var(--color-error);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+  min-width: 28px;
+}
+
+.boton-limpiar:hover {
+  background: #ef4444;
+}
+
+.contenedor-terminal {
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  overflow: hidden;
+  background: var(--fondo-terminal);
+}
+
+.contenedor-visor {
+  height: 100%;
+  width: 100%;
+  background: white;
+  overflow: auto;
+}
+
+.contenedor-visor iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+.xterm {
+  padding: 0.5rem;
+  height: 100%;
+  width: 100%;
+}
+
+.xterm-viewport {
+  width: 100% !important;
+  overflow-y: auto !important;
+}
+
+.xterm-screen {
+  width: 100% !important;
+}
+
+/* Estilos para modo oscuro */
+.modo-oscuro .contenedor-terminal {
+  background: #1e1e1e;
+}
+
+.modo-oscuro .contenedor-visor {
+  background: #2d3748;
+}
+
+@media (max-width: 768px) {
+  .acciones-terminal {
+    gap: 0.5rem;
+  }
+  
+  .boton-cambio-modo {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+  }
+  
+  .contenedor-terminal,
+  .contenedor-visor {
+    padding: 0.3rem;
+  }
+}

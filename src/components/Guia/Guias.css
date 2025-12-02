@@ -1,0 +1,745 @@
+/* Guias.css - Estilos generales para todas las guías */
+
+/* ===== ESTRUCTURA BASE ===== */
+.guia-contenido {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--fondo-panel);
+  color: var(--texto-claro);
+  height: 100%;
+  overflow-y: auto;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.guia-header {
+  background: var(--fondo-encabezado);
+  padding: 20px;
+  border-bottom: 1px solid var(--color-borde);
+  top: 0;
+  z-index: 10;
+}
+
+.guia-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: var(--texto-claro);
+}
+
+.guia-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nivel, .tiempo {
+  background: var(--color-primario);
+  color: var(--texto-claro);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.guia-seccion {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.guia-seccion:last-child {
+  border-bottom: none;
+}
+
+.guia-seccion h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--texto-claro);
+}
+
+.guia-seccion h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--texto-claro);
+}
+
+.guia-seccion h4 {
+  margin: 0 0 10px 0;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--texto-claro);
+}
+
+/* ===== COMPONENTES REUTILIZABLES ===== */
+
+/* Tarjetas de Concepto */
+.concepto-card {
+  background: var(--fondo-encabezado);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--color-primario);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.concepto-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.concepto-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+  color: var(--texto-claro);
+}
+
+.concepto-content p {
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  color: var(--texto-atemperado);
+  font-size: 0.9em;
+}
+
+.concepto-content ul, .concepto-content ol {
+  margin: 8px 0;
+  padding-left: 18px;
+}
+
+.concepto-content li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+  font-size: 0.9em;
+  color: var(--texto-atemperado);
+}
+
+.concepto-content strong {
+  color: var(--texto-claro);
+  font-weight: 600;
+}
+
+.concepto-content code {
+  background: var(--fondo-oscuro);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85em;
+  color: var(--texto-claro);
+}
+
+/* Grids y Layouts */
+.tipos-datos-grid,
+.aplicaciones-grid,
+.recursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.tipo-dato-card,
+.aplicacion-card,
+.recurso-card {
+  background: var(--fondo-encabezado);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid var(--color-borde);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tipo-dato-card:hover,
+.aplicacion-card:hover,
+.recurso-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tipo-dato-card h4,
+.aplicacion-card h4,
+.recurso-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: var(--texto-claro);
+}
+
+.tipo-dato-card p,
+.aplicacion-card p,
+.recurso-card p {
+  margin: 0 0 8px 0;
+  font-size: 0.85em;
+  line-height: 1.3;
+  color: var(--texto-atemperado);
+}
+
+.tipo-dato-card code,
+.aplicacion-card code,
+.recurso-card code {
+  background: var(--fondo-oscuro);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  color: var(--texto-claro);
+}
+
+/* Contenedor de Código */
+.codigo-contenedor {
+  background: var(--fondo-oscuro);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border: 1px solid var(--color-borde);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.codigo-contenedor:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.codigo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--fondo-encabezado);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.codigo-header span {
+  font-size: 0.9em;
+  color: var(--texto-atemperado);
+  font-weight: 500;
+}
+
+.codigo-botones {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-copiar {
+  background: var(--color-primario);
+  color: var(--texto-claro);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-copiar:hover {
+  background: var(--color-primario-oscuro);
+  transform: translateY(-1px);
+}
+
+.btn-copiar.copiado {
+  background: var(--color-exito);
+}
+
+.btn-cargar-editor {
+  background: var(--color-advertencia);
+  color: var(--texto-claro);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-cargar-editor:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+}
+
+.codigo-ejemplo {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--fondo-oscuro);
+}
+
+.codigo-ejemplo code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: var(--texto-claro);
+  display: block;
+}
+
+/* Bloques de Información */
+.nota-importante,
+.nota-advertencia,
+.nota-exito,
+.nota-error {
+  padding: 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border-left: 4px solid;
+}
+
+.nota-importante {
+  background: rgba(37, 99, 235, 0.1);
+  border-left-color: var(--color-primario);
+}
+
+.nota-advertencia {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: var(--color-advertencia);
+}
+
+.nota-exito {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: var(--color-exito);
+}
+
+.nota-error {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: var(--color-error);
+}
+
+.nota-importante h4,
+.nota-advertencia h4,
+.nota-exito h4,
+.nota-error h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95em;
+  color: var(--texto-claro);
+}
+
+.nota-importante p,
+.nota-advertencia p,
+.nota-exito p,
+.nota-error p {
+  margin: 0;
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: var(--texto-atemperado);
+}
+
+.nota-exito ul {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+}
+
+.nota-exito li {
+  margin-bottom: 4px;
+  line-height: 1.4;
+  font-size: 0.85em;
+  color: var(--texto-atemperado);
+}
+
+.nota-exito strong {
+  color: var(--texto-claro);
+}
+
+/* Listas de Pasos */
+.pasos-lista,
+.ejercicios-lista,
+.recursos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.paso,
+.ejercicio,
+.recurso-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--fondo-encabezado);
+  padding: 16px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.paso:hover,
+.ejercicio:hover,
+.recurso-item:hover {
+  transform: translateX(4px);
+}
+
+.paso-numero {
+  background: var(--color-primario);
+  color: var(--texto-claro);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8em;
+  flex-shrink: 0;
+}
+
+.paso-contenido h4,
+.ejercicio h4,
+.recurso-item h4 {
+  margin: 0 0 6px 0;
+  font-size: 0.95em;
+  color: var(--texto-claro);
+}
+
+.paso-contenido p,
+.ejercicio p,
+.recurso-item p {
+  margin: 0;
+  line-height: 1.4;
+  color: var(--texto-atemperado);
+  font-size: 0.85em;
+}
+
+/* Próximos Pasos */
+.proximos-pasos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.paso-aprendizaje {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--fondo-encabezado);
+  padding: 16px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.paso-aprendizaje:hover {
+  transform: translateX(4px);
+}
+
+.paso-aprendizaje .paso-numero {
+  width: 28px;
+  height: 28px;
+  font-size: 0.9em;
+}
+
+.paso-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 0.95em;
+  color: var(--texto-claro);
+}
+
+.paso-info p {
+  margin: 0;
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: var(--texto-atemperado);
+}
+
+/* Resúmenes y Listas de Conceptos */
+.resumen-practicas,
+.lista-conceptos {
+  background: var(--fondo-encabezado);
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.resumen-practicas h4,
+.lista-conceptos h4 {
+  margin: 0 0 12px 0;
+  font-size: 1em;
+  color: var(--texto-claro);
+}
+
+.resumen-practicas ul,
+.lista-conceptos ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.resumen-practicas li,
+.lista-conceptos li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+  font-size: 0.85em;
+  color: var(--texto-atemperado);
+}
+
+.resumen-practicas code,
+.lista-conceptos code {
+  background: var(--fondo-oscuro);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  color: var(--texto-claro);
+}
+
+/* ===== COMPONENTES ESPECIALES ===== */
+
+/* Tablas */
+.tabla-contenedor {
+  overflow-x: auto;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+}
+
+.tabla-guia {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--fondo-encabezado);
+}
+
+.tabla-guia th,
+.tabla-guia td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-borde);
+  font-size: 0.85em;
+}
+
+.tabla-guia th {
+  background: var(--fondo-oscuro);
+  color: var(--texto-claro);
+  font-weight: 600;
+}
+
+.tabla-guia td {
+  color: var(--texto-atemperado);
+}
+
+.tabla-guia tr:last-child td {
+  border-bottom: none;
+}
+
+/* Imágenes y Figuras */
+.figura-guia {
+  margin: 16px 0;
+  text-align: center;
+}
+
+.figura-guia img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+}
+
+.figura-guia figcaption {
+  margin-top: 8px;
+  font-size: 0.8em;
+  color: var(--texto-atemperado);
+  font-style: italic;
+}
+
+/* Navegación entre Temas */
+.navegacion-temas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--fondo-encabezado);
+  border-top: 1px solid var(--color-borde);
+  margin-top: auto;
+}
+
+.btn-tema {
+  background: var(--color-primario);
+  color: var(--texto-claro);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-tema:hover {
+  background: var(--color-primario-oscuro);
+  transform: translateY(-1px);
+}
+
+.btn-tema:disabled {
+  background: var(--color-borde);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== UTILIDADES ===== */
+
+.texto-centrado {
+  text-align: center;
+}
+
+.texto-derecha {
+  text-align: right;
+}
+
+.margen-superior {
+  margin-top: 20px;
+}
+
+.margen-inferior {
+  margin-bottom: 20px;
+}
+
+.sin-borde {
+  border: none !important;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+.guia-contenido::-webkit-scrollbar {
+  width: 6px;
+}
+
+.guia-contenido::-webkit-scrollbar-track {
+  background: var(--fondo-panel);
+}
+
+.guia-contenido::-webkit-scrollbar-thumb {
+  background: var(--color-borde);
+  border-radius: 3px;
+}
+
+.guia-contenido::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primario);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .guia-header {
+    padding: 15px;
+  }
+  
+  .guia-header h1 {
+    font-size: 1.3em;
+  }
+  
+  .guia-seccion {
+    padding: 16px;
+  }
+  
+  .tipos-datos-grid,
+  .aplicaciones-grid,
+  .recursos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .paso,
+  .ejercicio,
+  .recurso-item,
+  .paso-aprendizaje {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .navegacion-temas {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-tema {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .codigo-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .codigo-botones {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .guia-header {
+    padding: 12px;
+  }
+  
+  .guia-seccion {
+    padding: 12px;
+  }
+  
+  .concepto-card,
+  .tipo-dato-card,
+  .aplicacion-card,
+  .recurso-card {
+    padding: 12px;
+  }
+  
+  .codigo-header {
+    padding: 10px 12px;
+  }
+  
+  .codigo-ejemplo {
+    padding: 12px;
+  }
+  
+  .paso,
+  .ejercicio,
+  .recurso-item,
+  .paso-aprendizaje {
+    padding: 12px;
+  }
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guia-seccion {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.concepto-card,
+.codigo-contenedor,
+.tipo-dato-card {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ===== MODO CLARO ESPECÍFICO ===== */
+.modo-claro .guia-contenido {
+  background: var(--fondo-panel);
+}
+
+.modo-claro .concepto-card,
+.modo-claro .tipo-dato-card,
+.modo-claro .aplicacion-card,
+.modo-claro .recurso-card,
+.modo-claro .paso,
+.modo-claro .ejercicio,
+.modo-claro .recurso-item,
+.modo-claro .paso-aprendizaje {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.modo-claro .codigo-contenedor {
+  border-color: var(--color-borde);
+}
