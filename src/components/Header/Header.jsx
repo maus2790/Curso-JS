@@ -71,7 +71,7 @@ const Header = ({
           {sidebarAbierto ? '◀' : '▶'}
         </button>
         <div className="titulo-encabezado">
-          <h1>🚀 Curso de JavaScript</h1>
+          <h1>🚀 Curso de JavaScript v1.0</h1>
           <p>Domina JavaScript desde cero - {temaActual?.nombre}</p>
         </div>
       </div>
