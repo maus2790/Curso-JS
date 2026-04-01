@@ -63,7 +63,7 @@ const Header = ({
   return (
     <header className="encabezado-aplicacion">
       <div className="izquierda-encabezado">
-        <button 
+        <button
           className="alternar-sidebar"
           onClick={() => setSidebarAbierto(!sidebarAbierto)}
           title={sidebarAbierto ? "Ocultar sidebar" : "Mostrar sidebar"}
@@ -71,20 +71,20 @@ const Header = ({
           {sidebarAbierto ? '◀' : '▶'}
         </button>
         <div className="titulo-encabezado">
-          <h1>🚀 Curso de JavaScript</h1>
+          <h1>🚀 Curso de JavaScript v1.0</h1>
           <p>Domina JavaScript desde cero - {temaActual?.nombre}</p>
         </div>
       </div>
       <div className="derecha-encabezado">
         {/* Menú de control de paneles */}
-        <PanelControlMenu 
+        <PanelControlMenu
           panelesVisibles={panelesVisibles}
           togglePanel={togglePanel}
           restablecerDisposicion={restablecerDisposicion}
           setPanelesVisibles={setPanelesVisibles} // Pasar la nueva prop
         />
 
-        <button 
+        <button
           className="icono-encabezado"
           onClick={abrirMessenger}
           title="Abrir Messenger"
@@ -96,7 +96,7 @@ const Header = ({
         {/* Componente Notifications integrado */}
         <Notifications />
 
-        <button 
+        <button
           className={`icono-encabezado ${rightSidebarAbierto ? 'activo' : ''}`}
           onClick={() => setRightSidebarAbierto(!rightSidebarAbierto)}
           title={rightSidebarAbierto ? "Ocultar herramientas" : "Mostrar herramientas"}
