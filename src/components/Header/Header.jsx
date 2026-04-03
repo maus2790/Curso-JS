@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Rocket, 
-  MessageSquare, 
-  Toolbox, 
-  X 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Rocket,
+  MessageSquare,
+  Toolbox,
+  X
 } from 'lucide-react';
 import Notifications from '../Notifications/Notifications';
 import UserMenu from '../UserMenu/UserMenu';
@@ -74,7 +74,7 @@ const Header = ({
   return (
     <header className="encabezado-aplicacion">
       <div className="izquierda-encabezado">
-        <button 
+        <button
           className="alternar-sidebar"
           onClick={() => setSidebarAbierto(!sidebarAbierto)}
           title={sidebarAbierto ? "Ocultar sidebar" : "Mostrar sidebar"}
@@ -88,14 +88,14 @@ const Header = ({
       </div>
       <div className="derecha-encabezado">
         {/* Menú de control de paneles */}
-        <PanelControlMenu 
+        <PanelControlMenu
           panelesVisibles={panelesVisibles}
           togglePanel={togglePanel}
           restablecerDisposicion={restablecerDisposicion}
           setPanelesVisibles={setPanelesVisibles} // Pasar la nueva prop
         />
 
-        <button 
+        <button
           className="icono-encabezado"
           onClick={abrirMessenger}
           title="Abrir Messenger"
@@ -107,7 +107,7 @@ const Header = ({
         {/* Componente Notifications integrado */}
         <Notifications />
 
-        <button 
+        <button
           className={`icono-encabezado ${rightSidebarAbierto ? 'activo' : ''}`}
           onClick={() => setRightSidebarAbierto(!rightSidebarAbierto)}
           title={rightSidebarAbierto ? "Ocultar herramientas" : "Mostrar herramientas"}
@@ -116,8 +116,8 @@ const Header = ({
         </button>
 
         {/* Componente UserMenu integrado */}
-        <UserMenu 
-          alternarPantallaCompleta={alternarPantallaCompleta} 
+        <UserMenu
+          alternarPantallaCompleta={alternarPantallaCompleta}
           darkMode={modoOscuro}
           setDarkMode={setModoOscuro}
           stats={stats}
