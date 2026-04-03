@@ -1,4 +1,4 @@
-/* Cuestionarios.css - Estilos minimalistas para evaluaciones */
+/* Evaluacion.css - Estilos minimalistas para evaluaciones */
 
 .evaluacion-contenido {
   max-width: 100%;
@@ -109,7 +109,7 @@
 
 /* Lista de Preguntas */
 .preguntas-lista {
-  padding: 20px;
+  padding: 10px 0px;
 }
 
 .pregunta-item.activa {
@@ -663,404 +663,57 @@ textarea:disabled {
   background: var(--color-primario);
 }
 
-/* ========================================================================= */
-/* ESTILOS PARA MODO PRÁCTICA EN EVALUACIÓN */
-/* ========================================================================= */
-
-.modo-practica-evaluacion {
-  background: var(--fondo-panel);
-  padding: 0;
-}
-
-.practica-header-evaluacion {
-  background: var(--fondo-encabezado);
-  padding: 20px;
-  border-bottom: 1px solid var(--color-borde);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.practica-titulo-evaluacion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  gap: 20px;
-}
-
-.practica-titulo-evaluacion h1 {
-  margin: 0;
-  font-size: 1.4em;
-  font-weight: 600;
-  color: var(--texto-claro);
-  flex: 1;
-}
-
-.btn-salir-practica-evaluacion {
-  background: var(--color-error);
-  color: var(--texto-claro);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-salir-practica-evaluacion:hover {
-  background: #dc2626;
-  transform: translateY(-1px);
-}
-
-.practica-meta-evaluacion {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.preguntas-total,
-.dificultad-promedio,
-.puntos-totales {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  font-weight: 500;
-}
-
-.dificultad-promedio {
-  background: var(--color-advertencia);
-}
-
-.puntos-totales {
-  background: var(--color-exito);
-}
-
-/* Lista de preguntas en modo práctica */
-.practica-lista-evaluacion {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.pregunta-completa-evaluacion {
-  background: var(--fondo-encabezado);
-  border-radius: 12px;
-  border: 1px solid var(--color-borde);
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.pregunta-completa-evaluacion:hover {
-  border-color: var(--color-primario);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.pregunta-info-evaluacion {
-  padding: 20px;
-  border-bottom: 1px solid var(--color-borde);
-  background: var(--fondo-panel);
-}
-
-.pregunta-header-evaluacion {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  gap: 15px;
-}
-
-.pregunta-titulo-evaluacion {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  flex-wrap: wrap;
-}
-
-.pregunta-numero-evaluacion {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.85em;
-  font-weight: 600;
-  min-width: 35px;
-  text-align: center;
-}
-
-.pregunta-titulo-evaluacion h3 {
-  margin: 0;
-  font-size: 1.1em;
-  font-weight: 600;
-  color: var(--texto-claro);
-  flex: 1;
-  min-width: 200px;
-}
-
-.dificultad-evaluacion {
-  padding: 2px 8px;
-  border-radius: 8px;
-  font-size: 0.75em;
-  font-weight: 600;
-  text-transform: capitalize;
-  white-space: nowrap;
-}
-
-.dificultad-evaluacion.facil {
-  background: var(--color-exito);
-  color: white;
-}
-
-.dificultad-evaluacion.medio {
-  background: var(--color-advertencia);
-  color: white;
-}
-
-.dificultad-evaluacion.dificil {
-  background: var(--color-error);
-  color: white;
-}
-
-.pregunta-puntos-evaluacion {
-  background: var(--color-advertencia);
-  color: var(--texto-claro);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.puntos-texto {
-  font-size: 0.8em;
-}
-
-.pregunta-tipo-evaluacion {
-  margin-top: 8px;
-}
-
-.tipo-badge {
-  background: var(--fondo-oscuro);
-  color: var(--texto-atemperado);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.75em;
-  border: 1px solid var(--color-borde);
-}
-
-.pregunta-contenido-evaluacion {
-  background: var(--fondo-panel);
-  padding: 20px;
-}
-
-/* Explicación en modo práctica */
-.explicacion-practica {
-  margin-top: 20px;
-  padding: 16px;
-  background: var(--fondo-oscuro);
-  border-radius: 8px;
-  border-left: 4px solid var(--color-advertencia);
-}
-
-.explicacion-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.explicacion-icono {
-  font-size: 1.1em;
-}
-
-.explicacion-practica p {
-  margin: 0;
-  color: var(--texto-atemperado);
-  line-height: 1.5;
-  font-size: 0.9em;
-}
-
-.explicacion-practica strong {
-  color: var(--texto-claro);
-}
-
-/* Información general de práctica */
-.practica-info-general-evaluacion {
-  padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.instrucciones-practica-evaluacion {
-  background: var(--fondo-encabezado);
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid var(--color-borde);
-}
-
-.instrucciones-practica-evaluacion h3 {
-  margin: 0 0 15px 0;
-  font-size: 1.1em;
-  color: var(--texto-claro);
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--color-primario);
-}
-
-.instrucciones-practica-evaluacion ul {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 0.85em;
-  color: var(--texto-atemperado);
-}
-
-.instrucciones-practica-evaluacion li {
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-/* Mostrar respuestas correctas en modo práctica */
-.modo-practica-evaluacion .respuesta-correcta {
-  border-color: var(--color-exito);
-  background: rgba(22, 163, 74, 0.1);
-}
-
-.modo-practica-evaluacion .respuesta-correcta .opcion-texto {
-  color: var(--color-exito);
-  font-weight: 600;
-}
-
-/* Botón modo práctica en evaluación normal */
-.btn-modo-practica {
-  background: var(--color-advertencia);
-  color: var(--texto-claro);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.btn-modo-practica:hover {
-  background: #b45309;
-  transform: translateY(-1px);
-}
-
-.modo-acciones {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .evaluacion-header {
     padding: 12px 16px;
   }
-  
+
   .encabezado-principal {
     flex-direction: column;
     gap: 8px;
     text-align: center;
   }
-  
+
   .encabezado-principal h1 {
     font-size: 1.2em;
   }
-  
+
   .preguntas-lista {
     padding: 16px;
   }
-  
+
   .pregunta-contenedor {
     padding: 16px;
   }
-  
+
   .evaluacion-acciones {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .navegacion-preguntas {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .entradas-codigo {
     flex-direction: column;
   }
-  
+
   .entrada-codigo,
   .entrada-espacio {
     width: 100%;
   }
-  
+
   .fila-relacion {
     flex-direction: column;
     gap: 6px;
     text-align: center;
   }
-  
+
   .fila-relacion select {
     min-width: 100%;
-  }
-
-  /* Responsive para modo práctica */
-  .practica-titulo-evaluacion {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-  
-  .practica-titulo-evaluacion h1 {
-    font-size: 1.2em;
-  }
-  
-  .practica-meta-evaluacion {
-    justify-content: center;
-  }
-  
-  .pregunta-header-evaluacion {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .pregunta-titulo-evaluacion {
-    width: 100%;
-  }
-  
-  .practica-lista-evaluacion {
-    padding: 15px;
-    gap: 20px;
-  }
-  
-  .pregunta-info-evaluacion {
-    padding: 15px;
-  }
-  
-  .pregunta-contenido-evaluacion {
-    padding: 15px;
-  }
-  
-  .btn-salir-practica-evaluacion {
-    width: 100%;
-    justify-content: center;
   }
 }
 
@@ -1068,62 +721,28 @@ textarea:disabled {
   .evaluacion-header {
     padding: 10px 12px;
   }
-  
+
   .preguntas-lista {
     padding: 12px;
   }
-  
+
   .pregunta-contenedor {
     padding: 12px;
   }
-  
+
   .indicadores-preguntas {
     justify-content: center;
   }
-  
+
   .indicador-pregunta {
     width: 24px;
     height: 24px;
     font-size: 0.7em;
   }
-  
+
   .pregunta-info {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-  }
-
-  /* Responsive para modo práctica */
-  .practica-header-evaluacion {
-    padding: 15px;
-  }
-  
-  .practica-lista-evaluacion {
-    padding: 12px;
-    gap: 15px;
-  }
-  
-  .pregunta-info-evaluacion {
-    padding: 12px;
-  }
-  
-  .pregunta-contenido-evaluacion {
-    padding: 12px;
-  }
-  
-  .pregunta-titulo-evaluacion {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .pregunta-titulo-evaluacion h3 {
-    min-width: auto;
-  }
-  
-  .practica-meta-evaluacion {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
   }
 }

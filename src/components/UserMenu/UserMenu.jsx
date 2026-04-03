@@ -1,7 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { 
+  User, 
+  Star, 
+  Diamond, 
+  Coins, 
+  Home, 
+  Monitor, 
+  Moon, 
+  Sun, 
+  LogOut 
+} from 'lucide-react';
 import './UserMenu.css';
 
-const UserMenu = ({ alternarPantallaCompleta }) => {
+const UserMenu = ({ alternarPantallaCompleta, darkMode, setDarkMode, stats }) => {
   const [menuUsuarioAbierto, setMenuUsuarioAbierto] = useState(false);
   const menuUsuarioRef = useRef(null);
 
@@ -33,69 +44,81 @@ const UserMenu = ({ alternarPantallaCompleta }) => {
     setMenuUsuarioAbierto(false);
   };
 
+  const alternarTema = () => {
+    setDarkMode(!darkMode);
+    setMenuUsuarioAbierto(false);
+  };
+
   return (
     <div className="contenedor-avatar-usuario" ref={menuUsuarioRef}>
-      <button 
+      <button
         className={`avatar-usuario ${menuUsuarioAbierto ? 'activo' : ''}`}
         onClick={alternarMenuUsuario}
         title="Menú de usuario"
       >
-        <span className="icono">👤</span>
+        <User size={20} />
       </button>
-      
+
       {menuUsuarioAbierto && (
         <div className="menu-usuario">
           <div className="encabezado-menu-usuario">
             <div className="avatar-usuario-grande">
-              <span className="icono">👤</span>
+              <User size={32} />
             </div>
             <div className="info-usuario">
               <div className="nombre-usuario">Estudiante</div>
-              <div className="rol-usuario">Nivel 5 - Programador Novato</div>
+              <div className="rol-usuario">Nivel {Math.floor(stats.xp / 500) + 1} - Programador</div>
             </div>
           </div>
           <div className="fila-estadisticas-usuario">
-            <div className="elemento-estadistica">
-              <span className="icono-estadistica">⭐</span>
-              <span className="valor-estadistica">1,250 XP</span>
+            <div className="elemento-estadistica" title="Experiencia">
+              <Star size={16} className="icono-xp" />
+              <span className="valor-estadistica">{stats.xp.toLocaleString()} XP</span>
             </div>
-            <div className="elemento-estadistica">
-              <span className="icono-estadistica">💎</span>
-              <span className="valor-estadistica">85</span>
+            <div className="elemento-estadistica" title="Diamantes">
+              <Diamond size={16} className="icono-diamante" />
+              <span className="valor-estadistica">{stats.diamonds}</span>
             </div>
-            <div className="elemento-estadistica">
-              <span className="icono-estadistica">🪙</span>
-              <span className="valor-estadistica">320</span>
+            <div className="elemento-estadistica" title="Monedas">
+              <Coins size={16} className="icono-moneda" />
+              <span className="valor-estadistica">{stats.coins}</span>
             </div>
-          </div> 
+          </div>
           <hr className="divisor-menu" />
           <div className="elementos-menu-usuario">
-            <button 
+            <button
               className="elemento-menu-usuario"
               onClick={() => manejarNavegacion('home')}
             >
-              <span className="icono">🏠</span>
+              <Home size={18} />
               <span>Home</span>
             </button>
-            <button 
+            <button
               className="elemento-menu-usuario"
               onClick={() => manejarNavegacion('perfil')}
             >
-              <span className="icono">👤</span>
+              <User size={18} />
               <span>Perfil</span>
             </button>
-            <button 
+            <button
               className="elemento-menu-usuario"
               onClick={alternarPantallaCompleta}
             >
-              <span className="icono">📺</span>
+              <Monitor size={18} />
               <span>Pantalla Completa</span>
             </button>
-            <button 
+            <button
+              className="elemento-menu-usuario tema-toggle"
+              onClick={alternarTema}
+            >
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+              <span>{darkMode ? 'Modo Claro' : 'Modo Oscuro'}</span>
+            </button>
+            <button
               className="elemento-menu-usuario cerrar-sesion"
               onClick={manejarCerrarSesion}
             >
-              <span className="icono">🚪</span>
+              <LogOut size={18} />
               <span>Cerrar Sesión</span>
             </button>
           </div>

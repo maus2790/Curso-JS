@@ -20,19 +20,27 @@
   background: var(--color-primario);
   color: white;
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  flex-shrink: 0;
   transition: all 0.2s ease;
+}
+
+.alternar-sidebar svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  stroke: white;
 }
 
 .alternar-sidebar:hover {
   background: var(--color-primario-oscuro);
+  transform: scale(1.05);
 }
 
 .titulo-encabezado h1 {
@@ -426,6 +434,13 @@
   transition: all 0.2s ease;
 }
 
+.avatar-usuario svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
 .avatar-usuario:hover {
   background: var(--fondo-encabezado);
   transform: scale(1.1);
@@ -434,6 +449,7 @@
 .avatar-usuario.activo {
   background: var(--color-primario);
   border-color: var(--color-primario);
+  color: white;
 }
 
 .avatar-usuario .icono {

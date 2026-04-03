@@ -1,4 +1,12 @@
 import React, { useState } from 'react';
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Rocket, 
+  MessageSquare, 
+  Toolbox, 
+  X 
+} from 'lucide-react';
 import Notifications from '../Notifications/Notifications';
 import UserMenu from '../UserMenu/UserMenu';
 import PanelControlMenu from '../PanelControlMenu/PanelControlMenu';
@@ -14,7 +22,10 @@ const Header = ({
   abrirMessenger,
   panelesVisibles,
   togglePanel,
-  setPanelesVisibles // Nueva prop
+  setPanelesVisibles, // Nueva prop
+  modoOscuro,
+  setModoOscuro,
+  stats
 }) => {
   // Datos de mensajes de ejemplo para el header
   const datosMensajes = [
@@ -68,10 +79,10 @@ const Header = ({
           onClick={() => setSidebarAbierto(!sidebarAbierto)}
           title={sidebarAbierto ? "Ocultar sidebar" : "Mostrar sidebar"}
         >
-          {sidebarAbierto ? '◀' : '▶'}
+          {sidebarAbierto ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
         </button>
         <div className="titulo-encabezado">
-          <h1>🚀 Curso de JavaScript</h1>
+          <h1><Rocket className="icono-cohete" size={24} /> Curso de JavaScript</h1>
           <p>Domina JavaScript desde cero - {temaActual?.nombre}</p>
         </div>
       </div>
@@ -89,7 +100,7 @@ const Header = ({
           onClick={abrirMessenger}
           title="Abrir Messenger"
         >
-          <span className="icono">💬</span>
+          <MessageSquare size={20} />
           <span className="insignia-notificacion">1</span>
         </button>
 
@@ -101,11 +112,16 @@ const Header = ({
           onClick={() => setRightSidebarAbierto(!rightSidebarAbierto)}
           title={rightSidebarAbierto ? "Ocultar herramientas" : "Mostrar herramientas"}
         >
-          <span className="icono">{rightSidebarAbierto ? '❌' : '🧰'}</span>
+          {rightSidebarAbierto ? <X size={20} /> : <Toolbox size={20} />}
         </button>
 
         {/* Componente UserMenu integrado */}
-        <UserMenu alternarPantallaCompleta={alternarPantallaCompleta} />
+        <UserMenu 
+          alternarPantallaCompleta={alternarPantallaCompleta} 
+          darkMode={modoOscuro}
+          setDarkMode={setModoOscuro}
+          stats={stats}
+        />
       </div>
     </header>
   );

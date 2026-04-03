@@ -14,47 +14,103 @@
 
 .practica-header {
   background: var(--fondo-encabezado);
-  padding: 20px;
+  padding: 12px;
   border-bottom: 1px solid var(--color-borde);
+  position: sticky;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Primera fila - solo título */
+.practica-header-principal {
+  margin-top: -6px;
 }
 
 .practica-header h1 {
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 1.4em;
   font-weight: 600;
   color: var(--texto-claro);
 }
 
+/* Segunda fila - meta información y puntaje */
 .practica-meta {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .ejercicios,
-.dificultad,
-.puntos {
+.dificultad {
   background: var(--color-primario);
   color: var(--texto-claro);
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 0.8em;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .dificultad {
   background: var(--color-exito);
 }
 
-.puntos {
-  background: var(--color-advertencia);
+/* Puntaje header - mismo estilo que los elementos de practica-meta */
+.practica-puntaje-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  padding: 4px 10px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+.puntaje-icon {
+  font-size: 0.75remrem;
+}
+
+.puntaje-actual {
+  font-size: 0.75remrem;
+  font-weight: bold;
+}
+
+.puntaje-total {
+  font-size: 0.75rem;
+  opacity: 0.75rem;
+}
+
+.puntaje-barra {
+  width: 60px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.puntaje-barra-relleno {
+  height: 100%;
+  background-color: white;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.puntaje-porcentaje {
+  font-size: 0.75rem;
+  min-width: 40px;
 }
 
 /* Lista de ejercicios en una columna */
 .practica-lista {
-  padding: 20px;
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -74,6 +130,35 @@
 .ejercicio-completo:hover {
   border-color: var(--color-primario);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado de ejercicio completado */
+.ejercicio-completo.completado {
+  border-left: 4px solid #10b981;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.05), transparent);
+}
+
+.ejercicio-completo.solucion-mostrada {
+  border-left: 4px solid #f59e0b;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.05), transparent);
+}
+
+.completado-badge {
+  background-color: #10b981;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.solucion-badge {
+  background-color: #f59e0b;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 500;
 }
 
 /* Información del ejercicio */
@@ -96,6 +181,7 @@
   align-items: center;
   gap: 10px;
   flex: 1;
+  flex-wrap: wrap;
 }
 
 .ejercicio-numero {
@@ -152,38 +238,36 @@
 .codigo-acciones {
   display: flex;
   gap: 8px;
+  align-items: center;
 }
 
-.btn-cargar-ejercicio,
 .btn-copiar,
-.btn-solucion {
+.btn-solucion,
+.btn-enviar-respuesta-header,
+.btn-completado,
+.btn-solucion-mostrada {
   background: var(--color-primario);
   color: var(--texto-claro);
   border: none;
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.btn-cargar-ejercicio:hover {
-  background: var(--color-primario-oscuro);
-  transform: translateY(-1px);
+  white-space: nowrap;
 }
 
 .btn-copiar {
   background: var(--color-exito);
-  min-width: 70px;
-  justify-content: center;
 }
 
 .btn-copiar:hover {
   background: #15803d;
+  transform: translateY(-1px);
 }
 
 .btn-copiar.copiado {
@@ -192,8 +276,6 @@
 
 .btn-solucion {
   background: var(--color-advertencia);
-  min-width: 120px;
-  justify-content: center;
 }
 
 .btn-solucion:hover,
@@ -201,10 +283,78 @@
   background: #b45309;
 }
 
+.btn-enviar-respuesta-header {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.btn-enviar-respuesta-header:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.btn-completado {
+  background: #10b981;
+  opacity: 0.8;
+  cursor: default;
+}
+
+.btn-completado:hover {
+  transform: none;
+}
+
+.btn-solucion-mostrada {
+  background: #f59e0b;
+  opacity: 0.8;
+  cursor: default;
+}
+
+.btn-solucion-mostrada:hover {
+  transform: none;
+}
+
 .contenedor-codigo {
   padding: 0;
 }
 
+/* Código completar con inputs */
+.codigo-completar {
+  background: var(--fondo-oscuro);
+  padding: 20px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: var(--texto-claro);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+.entrada-espacio {
+  background: var(--fondo-panel);
+  border: 1px solid var(--color-borde);
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: var(--texto-claro);
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85em;
+  min-width: 80px;
+  margin: 0 4px;
+  transition: all 0.2s ease;
+}
+
+.entrada-espacio:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.entrada-espacio:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: var(--fondo-oscuro);
+}
+
+/* Código solución */
 .codigo-ejercicio {
   background: var(--fondo-oscuro);
   margin: 0;
@@ -216,6 +366,10 @@
   white-space: pre-wrap;
   word-break: break-word;
   overflow-x: auto;
+}
+
+.codigo-ejercicio.solucion {
+  border-left: 3px solid #f59e0b;
 }
 
 .codigo-ejercicio code {
@@ -306,700 +460,29 @@
   line-height: 1.3;
 }
 
-/* ========================================================================= */
-/* ESTILOS ESPECÍFICOS PARA MODO EVALUACIÓN EN PRÁCTICAS (con -practica) */
-/* ========================================================================= */
-
-.modo-evaluacion-practica {
-  background: var(--fondo-panel);
-}
-
-.modo-evaluacion-practica .evaluacion-header-practica {
-  background: var(--fondo-encabezado);
-  padding: 15px 20px;
-  border-bottom: 1px solid var(--color-borde);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.modo-evaluacion-practica .encabezado-superior-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  gap: 15px;
-}
-
-.modo-evaluacion-practica .encabezado-principal-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-}
-
-.modo-evaluacion-practica .encabezado-principal-practica h1 {
-  margin: 0;
-  font-size: 1.3em;
-  font-weight: 600;
-  color: var(--texto-claro);
-}
-
-.modo-evaluacion-practica .tiempo-transcurrido-practica {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-size: 0.85em;
-  font-weight: 600;
-}
-
-.modo-evaluacion-practica .barra-progreso-practica {
-  margin-bottom: 12px;
-}
-
-.modo-evaluacion-practica .progreso-texto-practica {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 0.85em;
-  color: var(--texto-atemperado);
-}
-
-.modo-evaluacion-practica .barra-practica {
-  background: var(--fondo-panel);
-  height: 6px;
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.modo-evaluacion-practica .progreso-relleno-practica {
-  background: var(--color-primario);
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-.modo-evaluacion-practica .indicadores-ejercicios-practica {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.modo-evaluacion-practica .indicador-ejercicio-practica {
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--color-borde);
-  border-radius: 6px;
-  background: var(--fondo-panel);
-  color: var(--texto-claro);
-  font-size: 0.8em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modo-evaluacion-practica .indicador-ejercicio-practica:hover {
-  border-color: var(--color-primario);
-}
-
-.modo-evaluacion-practica .indicador-ejercicio-practica.activo-practica {
-  border-color: var(--color-primario);
-  background: var(--color-primario);
-  color: white;
-}
-
-.modo-evaluacion-practica .indicador-ejercicio-practica.respondida-practica {
-  border-color: var(--color-exito);
-  background: var(--color-exito);
-  color: white;
-}
-
-.modo-evaluacion-practica .ejercicios-lista-practica {
-  padding: 20px;
-}
-
-.modo-evaluacion-practica .ejercicio-item-practica.activa-practica {
-  display: block;
-}
-
-.modo-evaluacion-practica .ejercicio-item-practica.oculta-practica {
-  display: none;
-}
-
-.modo-evaluacion-practica .evaluacion-acciones-practica {
-  padding: 16px 20px;
-  background: var(--fondo-encabezado);
-  border-top: 1px solid var(--color-borde);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.modo-evaluacion-practica .navegacion-ejercicios-practica {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.modo-evaluacion-practica .btn-nav-practica {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.85em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.modo-evaluacion-practica .btn-nav-practica:hover:not(:disabled) {
-  background: var(--color-primario-oscuro);
-}
-
-.modo-evaluacion-practica .btn-nav-practica:disabled {
-  background: var(--color-borde);
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.modo-evaluacion-practica .info-ejercicio-practica {
-  color: var(--texto-atemperado);
-  font-size: 0.85em;
-  font-weight: 600;
-  min-width: 60px;
-  text-align: center;
-}
-
-.modo-evaluacion-practica .btn-enviar-practica {
-  background: var(--color-exito);
-  color: var(--texto-claro);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.modo-evaluacion-practica .btn-enviar-practica:hover:not(:disabled) {
-  background: #15803d;
-}
-
-.modo-evaluacion-practica .btn-enviar-practica:disabled {
-  background: var(--color-borde);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* Estilos para campos de entrada en modo evaluación */
-.codigo-completar-practica {
-  background: var(--fondo-oscuro);
-  padding: 12px;
-  border-radius: 6px;
-  margin: 12px 0;
-  border: 1px solid var(--color-borde);
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.85em;
-  line-height: 1.4;
-  color: var(--texto-claro);
-  white-space: pre-wrap;
-}
-
-.codigo-completar-practica .entrada-espacio-practica {
-  background: var(--fondo-panel);
-  border: 1px solid var(--color-borde);
-  border-radius: 4px;
-  padding: 4px 8px;
-  color: var(--texto-claro);
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.85em;
-  min-width: 80px;
-  margin: 0 4px;
-  transition: all 0.2s ease;
-}
-
-.codigo-completar-practica .entrada-espacio-practica:focus {
-  outline: none;
-  border-color: var(--color-primario);
-}
-
-.codigo-completar-practica .entrada-espacio-practica:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  background: var(--fondo-oscuro);
-}
-
-/* Estados de corrección */
-.ejercicio-completo-practica.correcta-practica {
-  background: rgba(22, 163, 74, 0.05);
-  border-left: 4px solid var(--color-exito);
-}
-
-.ejercicio-completo-practica.incorrecta-practica {
-  background: rgba(220, 38, 38, 0.05);
-  border-left: 4px solid var(--color-error);
-}
-
-.explicacion-pregunta-practica {
-  margin-top: 12px;
-  padding: 10px 12px;
-  background: var(--fondo-oscuro);
-  border-radius: 6px;
-  border-left: 3px solid var(--color-advertencia);
-  font-size: 0.85em;
-  line-height: 1.4;
-}
-
-.estado-pregunta-practica {
-  font-weight: 600;
-  margin-bottom: 6px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: inline-block;
-  font-size: 0.8em;
-}
-
-.estado-pregunta-practica.correcta-practica {
-  background: var(--color-exito);
-  color: white;
-}
-
-.estado-pregunta-practica.incorrecta-practica {
-  background: var(--color-error);
-  color: white;
-}
-
-.explicacion-pregunta-practica p {
-  margin: 0;
-  color: var(--texto-atemperado);
-}
-
-.explicacion-pregunta-practica strong {
-  color: var(--texto-claro);
-}
-
-/* Botón modo evaluación */
-.btn-modo-evaluacion-practica {
-  background: var(--color-advertencia);
-  color: var(--texto-claro);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.85em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-modo-evaluacion-practica:hover {
-  background: #b45309;
-  transform: translateY(-1px);
-}
-
-/* Resultados */
-.resultados-modo-practica .pantalla-resultados-practica {
-  padding: 20px;
-}
-
-.resultados-modo-practica .encabezado-resultados-practica {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.resultados-modo-practica .encabezado-resultados-practica h1 {
-  margin: 0 0 12px 0;
-  font-size: 1.4em;
-  color: var(--texto-claro);
-}
-
-.resultados-modo-practica .info-resultados-practica {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.resultados-modo-practica .tarjeta-resultado-practica {
-  background: var(--fondo-encabezado);
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-size: 0.85em;
-  font-weight: 600;
-  color: var(--texto-claro);
-}
-
-.resultados-modo-practica .puntaje-final-practica {
-  text-align: center;
-  background: var(--fondo-encabezado);
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 1px solid var(--color-borde);
-}
-
-.resultados-modo-practica .circulo-puntaje-practica {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.resultados-modo-practica .puntaje-numero-practica {
-  font-size: 2em;
-  font-weight: 700;
-  color: var(--color-primario);
-}
-
-.resultados-modo-practica .puntaje-maximo-practica {
-  font-size: 1em;
-  color: var(--texto-atemperado);
-}
-
-.resultados-modo-practica .puntaje-porcentaje-practica {
-  font-size: 1em;
-  color: var(--texto-atemperado);
-  margin-bottom: 12px;
-}
-
-.resultados-modo-practica .mensaje-exito-practica,
-.resultados-modo-practica .mensaje-regular-practica,
-.resultados-modo-practica .mensaje-bajo-practica {
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9em;
-  display: inline-block;
-}
-
-.resultados-modo-practica .mensaje-exito-practica {
-  background: var(--color-exito);
-  color: white;
-}
-
-.resultados-modo-practica .mensaje-regular-practica {
-  background: var(--color-advertencia);
-  color: white;
-}
-
-.resultados-modo-practica .mensaje-bajo-practica {
-  background: var(--color-error);
-  color: white;
-}
-
-.resultados-modo-practica .resumen-ejercicios-practica {
-  margin-bottom: 20px;
-}
-
-.resultados-modo-practica .resumen-ejercicios-practica h3 {
-  margin: 0 0 16px 0;
-  font-size: 1.2em;
-  color: var(--texto-claro);
-}
-
-.resultados-modo-practica .ejercicios-lista-revision-practica {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.resultados-modo-practica .ejercicio-revision-practica {
-  background: var(--fondo-encabezado);
-  border-radius: 8px;
-  border: 1px solid var(--color-borde);
-  overflow: hidden;
-}
-
-.resultados-modo-practica .acciones-resultados-practica {
-  text-align: center;
-  padding: 16px 0;
-}
-
-.resultados-modo-practica .btn-reiniciar-practica {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.9em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.resultados-modo-practica .btn-reiniciar-practica:hover {
-  background: var(--color-primario-oscuro);
-}
-
-/* Estilos específicos para elementos de práctica en modo evaluación */
-.ejercicio-info-practica {
-  padding: 20px;
-  border-bottom: 1px solid var(--color-borde);
-  background: var(--fondo-panel);
-}
-
-.ejercicio-header-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  gap: 15px;
-}
-
-.ejercicio-titulo-practica {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-}
-
-.ejercicio-numero-practica {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.85em;
-  font-weight: 600;
-  min-width: 35px;
-  text-align: center;
-}
-
-.ejercicio-puntos-practica {
-  background: var(--color-advertencia);
-  color: var(--texto-claro);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.ejercicio-descripcion-practica {
-  margin: 0;
-  font-size: 0.9em;
-  color: var(--texto-atemperado);
-  line-height: 1.4;
-}
-
-.ejercicio-codigo-practica {
-  background: var(--fondo-panel);
-}
-
-.codigo-header-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  background: var(--fondo-encabezado);
-  border-bottom: 1px solid var(--color-borde);
-  font-size: 0.9em;
-  color: var(--texto-atemperado);
-}
-
-.codigo-acciones-practica {
-  display: flex;
-  gap: 8px;
-}
-
-.btn-cargar-ejercicio-practica,
-.btn-copiar-practica,
-.btn-solucion-practica {
-  background: var(--color-primario);
-  color: var(--texto-claro);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.btn-cargar-ejercicio-practica:hover {
-  background: var(--color-primario-oscuro);
-  transform: translateY(-1px);
-}
-
-.btn-copiar-practica {
-  background: var(--color-exito);
-  min-width: 70px;
-  justify-content: center;
-}
-
-.btn-copiar-practica:hover {
-  background: #15803d;
-}
-
-.btn-copiar-practica.copiado-practica {
-  background: var(--color-advertencia);
-}
-
-.btn-solucion-practica {
-  background: var(--color-advertencia);
-  min-width: 120px;
-  justify-content: center;
-}
-
-.btn-solucion-practica:hover,
-.btn-solucion-practica.activo-practica {
-  background: #b45309;
-}
-
-.contenedor-codigo-practica {
-  padding: 0;
-}
-
-.dificultad-practica {
-  padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 0.75em;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.dificultad-practica.facil {
-  background: var(--color-exito);
-  color: white;
-}
-
-.dificultad-practica.medio {
-  background: var(--color-advertencia);
-  color: white;
-}
-
-.dificultad-practica.dificil {
-  background: var(--color-error);
-  color: white;
-}
-
-/* Estilos adicionales para el botón de salir del modo evaluación */
-
-.modo-evaluacion-practica .encabezado-superior-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  gap: 15px;
-}
-
-.modo-evaluacion-practica .encabezado-principal-practica {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-}
-
-.btn-salir-evaluacion-practica {
-  background: var(--color-error);
-  color: var(--texto-claro);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 0.85em;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-salir-evaluacion-practica:hover {
-  background: #dc2626;
-  transform: translateY(-1px);
-}
-
-.acciones-derecha-practica {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-/* Deshabilitar botones en modo evaluación */
-.modo-evaluacion-practica .btn-cargar-ejercicio-practica:disabled,
-.modo-evaluacion-practica .btn-copiar-practica:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: var(--color-borde);
-}
-
-.modo-evaluacion-practica .btn-cargar-ejercicio-practica:disabled:hover,
-.modo-evaluacion-practica .btn-copiar-practica:disabled:hover {
-  transform: none;
-  background: var(--color-borde);
-}
-
-/* Responsive para el botón de salir */
-@media (max-width: 768px) {
-  .modo-evaluacion-practica .encabezado-superior-practica {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .modo-evaluacion-practica .encabezado-principal-practica {
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .btn-salir-evaluacion-practica {
-    align-self: flex-end;
-    margin-top: 8px;
-  }
-  
-  .modo-evaluacion-practica .evaluacion-acciones-practica {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .acciones-derecha-practica {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .btn-salir-evaluacion-practica {
-    padding: 6px 12px;
-    font-size: 0.8em;
-  }
-  
-  .modo-evaluacion-practica .encabezado-superior-practica {
-    gap: 8px;
-  }
-}
-
 /* Scrollbars personalizados */
 .practica-contenido::-webkit-scrollbar,
-.codigo-ejercicio::-webkit-scrollbar {
+.codigo-ejercicio::-webkit-scrollbar,
+.codigo-completar::-webkit-scrollbar {
   width: 6px;
 }
 
 .practica-contenido::-webkit-scrollbar-track,
-.codigo-ejercicio::-webkit-scrollbar-track {
+.codigo-ejercicio::-webkit-scrollbar-track,
+.codigo-completar::-webkit-scrollbar-track {
   background: var(--fondo-panel);
 }
 
 .practica-contenido::-webkit-scrollbar-thumb,
-.codigo-ejercicio::-webkit-scrollbar-thumb {
+.codigo-ejercicio::-webkit-scrollbar-thumb,
+.codigo-completar::-webkit-scrollbar-thumb {
   background: var(--color-borde);
   border-radius: 3px;
 }
 
 .practica-contenido::-webkit-scrollbar-thumb:hover,
-.codigo-ejercicio::-webkit-scrollbar-thumb:hover {
+.codigo-ejercicio::-webkit-scrollbar-thumb:hover,
+.codigo-completar::-webkit-scrollbar-thumb:hover {
   background: var(--color-primario);
 }
 
@@ -1008,82 +491,154 @@
   .practica-header {
     padding: 15px;
   }
-  
+
+  .practica-header-principal {
+    margin-top: -6px;
+  }
+
   .practica-header h1 {
     font-size: 1.2em;
   }
-  
-  .practica-lista {
-    padding: 15px;
-    gap: 20px;
+
+  .practica-meta {
+    gap: 8px;
   }
-  
-  .ejercicio-info {
-    padding: 15px;
+
+  .ejercicios,
+  .dificultad,
+  .practica-puntaje-header {
+    padding: 3px 8px;
+    font-size: 0.75em;
   }
-  
-  .ejercicio-header {
-    flex-direction: column;
-    gap: 10px;
+
+  .practica-puntaje-header {
+    gap: 0.5rem;
+    padding: 3px 8px;
   }
-  
-  .ejercicio-titulo {
-    width: 100%;
+
+  .puntaje-barra {
+    width: 50px;
   }
-  
+
   .codigo-header {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
   }
-  
+
   .codigo-acciones {
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
-  
+
+  .btn-copiar,
+  .btn-solucion,
+  .btn-enviar-respuesta-header,
+  .btn-completado,
+  .btn-solucion-mostrada {
+    padding: 4px 10px;
+    font-size: 0.75em;
+  }
+
+  .practica-lista {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .ejercicio-info {
+    padding: 15px;
+  }
+
+  .ejercicio-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ejercicio-titulo {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
   .practica-info-general {
     grid-template-columns: 1fr;
     gap: 20px;
     padding: 15px;
   }
-  
+
   .consejos-grid {
     grid-template-columns: 1fr;
   }
-  
+
+  .codigo-completar,
   .codigo-ejercicio {
     padding: 15px;
     font-size: 0.85em;
   }
+
+  .entrada-espacio {
+    min-width: 60px;
+    font-size: 0.8em;
+  }
 }
 
 @media (max-width: 480px) {
+  .practica-meta {
+    flex-wrap: wrap;
+  }
+
+  .ejercicios,
+  .dificultad {
+    flex: 1;
+    text-align: center;
+  }
+
+  .practica-puntaje-header {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .codigo-acciones {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-copiar,
+  .btn-solucion,
+  .btn-enviar-respuesta-header,
+  .btn-completado,
+  .btn-solucion-mostrada {
+    width: 100%;
+    justify-content: center;
+  }
+
   .practica-lista {
     padding: 12px;
     gap: 15px;
   }
-  
+
   .ejercicio-info {
     padding: 12px;
   }
-  
+
   .codigo-header {
     padding: 10px 12px;
   }
-  
-  .codigo-acciones {
-    flex-direction: column;
+
+  .codigo-completar,
+  .codigo-ejercicio {
+    padding: 12px;
+    font-size: 0.8em;
   }
-  
-  .btn-cargar-ejercicio,
-  .btn-copiar,
-  .btn-solucion {
-    width: 100%;
-    justify-content: center;
+
+  .entrada-espacio {
+    display: inline-block;
+    margin: 4px 2px;
+    width: calc(100% - 8px);
+    min-width: unset;
   }
-  
+
   .instrucciones-generales,
   .consejos-generales {
     padding: 15px;

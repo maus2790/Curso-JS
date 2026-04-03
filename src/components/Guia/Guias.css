@@ -34,7 +34,8 @@
   flex-wrap: wrap;
 }
 
-.nivel, .tiempo {
+.nivel,
+.tiempo {
   background: var(--color-primario);
   color: var(--texto-claro);
   padding: 4px 10px;
@@ -44,7 +45,7 @@
 }
 
 .guia-seccion {
-  padding: 20px;
+  padding: 10px 0px;
   border-bottom: 1px solid var(--color-borde);
 }
 
@@ -103,7 +104,8 @@
   font-size: 0.9em;
 }
 
-.concepto-content ul, .concepto-content ol {
+.concepto-content ul,
+.concepto-content ol {
   margin: 8px 0;
   padding-left: 18px;
 }
@@ -624,21 +626,21 @@
   .guia-header {
     padding: 15px;
   }
-  
+
   .guia-header h1 {
     font-size: 1.3em;
   }
-  
+
   .guia-seccion {
     padding: 16px;
   }
-  
+
   .tipos-datos-grid,
   .aplicaciones-grid,
   .recursos-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .paso,
   .ejercicio,
   .recurso-item,
@@ -647,12 +649,12 @@
     text-align: center;
     gap: 8px;
   }
-  
+
   .navegacion-temas {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .btn-tema {
     width: 100%;
     justify-content: center;
@@ -663,7 +665,7 @@
     gap: 10px;
     align-items: flex-start;
   }
-  
+
   .codigo-botones {
     width: 100%;
     justify-content: flex-start;
@@ -674,26 +676,26 @@
   .guia-header {
     padding: 12px;
   }
-  
+
   .guia-seccion {
     padding: 12px;
   }
-  
+
   .concepto-card,
   .tipo-dato-card,
   .aplicacion-card,
   .recurso-card {
     padding: 12px;
   }
-  
+
   .codigo-header {
     padding: 10px 12px;
   }
-  
+
   .codigo-ejemplo {
     padding: 12px;
   }
-  
+
   .paso,
   .ejercicio,
   .recurso-item,
@@ -708,6 +710,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

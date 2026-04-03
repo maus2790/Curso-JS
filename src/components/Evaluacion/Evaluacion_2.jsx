@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './Cuestionarios.css';
+import './Evaluacion.css';
 
 const Evaluacion_2 = () => {
   const [respuestas, setRespuestas] = useState({});
@@ -9,18 +9,17 @@ const Evaluacion_2 = () => {
   const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0);
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [modoRevision, setModoRevision] = useState(false);
-  const [modoPractica, setModoPractica] = useState(false);
 
   // Actualizar tiempo transcurrido
   useEffect(() => {
     const intervalo = setInterval(() => {
-      if (!mostrarResultados && !modoPractica) {
+      if (!mostrarResultados) {
         setTiempoTranscurrido(Date.now() - tiempoInicio);
       }
     }, 1000);
 
     return () => clearInterval(intervalo);
-  }, [tiempoInicio, mostrarResultados, modoPractica]);
+  }, [tiempoInicio, mostrarResultados]);
 
   const formatearTiempo = (ms) => {
     const minutos = Math.floor(ms / 60000);
@@ -177,10 +176,10 @@ const Evaluacion_2 = () => {
 
   const calcularPuntaje = useCallback(() => {
     let puntajeTotal = 0;
-    
+
     preguntas.forEach(pregunta => {
       const respuestaUsuario = respuestas[pregunta.id];
-      
+
       if (!respuestaUsuario) return;
 
       switch (pregunta.tipo) {
@@ -214,8 +213,8 @@ const Evaluacion_2 = () => {
         case 'completar-codigo':
           const todasCorrectas = pregunta.respuestasCorrectas.every((correcta, index) => {
             const respuesta = respuestaUsuario[index];
-            return correcta.toLowerCase().includes(respuesta.toLowerCase()) || 
-                   respuesta.toLowerCase().includes(correcta.toLowerCase());
+            return correcta.toLowerCase().includes(respuesta.toLowerCase()) ||
+              respuesta.toLowerCase().includes(correcta.toLowerCase());
           });
           if (todasCorrectas) {
             puntajeTotal += 10;
@@ -258,11 +257,34 @@ const Evaluacion_2 = () => {
   }, [respuestas, preguntas]);
 
   const enviarEvaluacion = useCallback(() => {
+    const preguntasSinResponder = preguntas.filter(p => !respuestas[p.id]).length;
+
+    if (preguntasSinResponder > 0) {
+      const confirmar = window.confirm(
+        `⚠️ Tienes ${preguntasSinResponder} pregunta(s) sin responder.\n\n` +
+        `¿Estás seguro de que quieres enviar la evaluación? ` +
+        `Las preguntas sin responder serán consideradas incorrectas.`
+      );
+
+      if (!confirmar) {
+        return;
+      }
+    } else {
+      const confirmar = window.confirm(
+        '📝 ¿Estás seguro de que quieres enviar la evaluación?\n\n' +
+        'Una vez enviada, no podrás modificar tus respuestas.'
+      );
+
+      if (!confirmar) {
+        return;
+      }
+    }
+
     const puntajeFinal = calcularPuntaje();
     setPuntaje(puntajeFinal);
     setMostrarResultados(true);
-    setModoPractica(false);
-  }, [calcularPuntaje]);
+    window.dispatchEvent(new CustomEvent('evaluacion-completada'));
+  }, [calcularPuntaje, respuestas, preguntas]);
 
   const reiniciarEvaluacion = useCallback(() => {
     setRespuestas({});
@@ -272,30 +294,7 @@ const Evaluacion_2 = () => {
     setTiempoTranscurrido(0);
     setPreguntaActual(0);
     setModoRevision(false);
-    setModoPractica(false);
   }, []);
-
-  const iniciarModoPractica = () => {
-    setModoPractica(true);
-    setRespuestas({});
-    setMostrarResultados(false);
-    setPuntaje(0);
-    setTiempoInicio(Date.now());
-    setTiempoTranscurrido(0);
-    setPreguntaActual(0);
-    setModoRevision(false);
-  };
-
-  const salirModoPractica = () => {
-    if (window.confirm('¿Estás seguro de que quieres salir del modo práctica? Se perderá tu progreso actual.')) {
-      setModoPractica(false);
-      setRespuestas({});
-      setMostrarResultados(false);
-      setPuntaje(0);
-      setTiempoTranscurrido(0);
-      setPreguntaActual(0);
-    }
-  };
 
   const siguientePregunta = () => {
     if (preguntaActual < preguntas.length - 1) {
@@ -331,7 +330,7 @@ const Evaluacion_2 = () => {
             <h3>{pregunta.pregunta}</h3>
             <div className="opciones-lista">
               {pregunta.opciones.map((opcion, index) => (
-                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${(modoRespuestas || modoPractica) && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
+                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${modoRespuestas && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
                   <input
                     type="radio"
                     name={`pregunta-${pregunta.id}`}
@@ -360,7 +359,7 @@ const Evaluacion_2 = () => {
             <h3>{pregunta.pregunta}</h3>
             <div className="opciones-lista">
               {pregunta.opciones.map((opcion, index) => (
-                <label key={index} className={`opcion-item ${respuestaUsuario?.includes(index) ? 'seleccionada' : ''} ${(modoRespuestas || modoPractica) && pregunta.respuestasCorrectas.includes(index) ? 'respuesta-correcta' : ''}`}>
+                <label key={index} className={`opcion-item ${respuestaUsuario?.includes(index) ? 'seleccionada' : ''} ${modoRespuestas && pregunta.respuestasCorrectas.includes(index) ? 'respuesta-correcta' : ''}`}>
                   <input
                     type="checkbox"
                     checked={respuestaUsuario?.includes(index) || false}
@@ -431,7 +430,7 @@ const Evaluacion_2 = () => {
             <pre className="codigo-pregunta"><code>{pregunta.codigo}</code></pre>
             <div className="opciones-lista">
               {pregunta.opciones.map((opcion, index) => (
-                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${(modoRespuestas || modoPractica) && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
+                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${modoRespuestas && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
                   <input
                     type="radio"
                     name={`output-${pregunta.id}`}
@@ -465,7 +464,7 @@ const Evaluacion_2 = () => {
                   {index < pregunta.espacios && (
                     <input
                       type="text"
-                      placeholder={`Fruta ${index + 1}`}
+                      placeholder={`Respuesta ${index + 1}`}
                       value={modoRespuestas ? pregunta.respuestasCorrectas[index] : (respuestaUsuario?.[index] || '')}
                       onChange={(e) => {
                         const nuevasRespuestas = respuestaUsuario ? [...respuestaUsuario] : Array(pregunta.espacios).fill('');
@@ -517,7 +516,7 @@ const Evaluacion_2 = () => {
             <h3>{pregunta.pregunta}</h3>
             <div className="opciones-lista">
               {pregunta.opciones.map((opcion, index) => (
-                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${(modoRespuestas || modoPractica) && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
+                <label key={index} className={`opcion-item ${respuestaUsuario === index ? 'seleccionada' : ''} ${modoRespuestas && index === pregunta.respuestaCorrecta ? 'respuesta-correcta' : ''}`}>
                   <input
                     type="radio"
                     name={`vf-${pregunta.id}`}
@@ -636,7 +635,7 @@ const Evaluacion_2 = () => {
       default:
         return null;
     }
-  }, [mostrarResultados, respuestas, manejarRespuesta, modoPractica]);
+  }, [mostrarResultados, respuestas, manejarRespuesta]);
 
   const calcularPuntajeIndividual = useCallback((pregunta) => {
     const respuestaUsuario = respuestas[pregunta.id];
@@ -659,8 +658,8 @@ const Evaluacion_2 = () => {
       case 'completar-codigo':
         return pregunta.respuestasCorrectas.every((correcta, index) => {
           const respuesta = respuestaUsuario[index];
-          return correcta.toLowerCase().includes(respuesta.toLowerCase()) || 
-                 respuesta.toLowerCase().includes(correcta.toLowerCase());
+          return correcta.toLowerCase().includes(respuesta.toLowerCase()) ||
+            respuesta.toLowerCase().includes(correcta.toLowerCase());
         });
 
       case 'texto-corto':
@@ -724,7 +723,7 @@ const Evaluacion_2 = () => {
               <div className="puntaje-maximo">/ 100</div>
             </div>
             <div className="puntaje-porcentaje">{Math.round((puntaje / 100) * 100)}%</div>
-            
+
             {puntaje >= 70 ? (
               <div className="mensaje-exito">¡Excelente trabajo! 🎉</div>
             ) : puntaje >= 50 ? (
@@ -764,80 +763,6 @@ const Evaluacion_2 = () => {
     );
   }
 
-  if (modoPractica) {
-    return (
-      <div className="evaluacion-contenido modo-practica-evaluacion">
-        <header className="practica-header-evaluacion">
-          <div className="practica-titulo-evaluacion">
-            <h1>Práctica: Variables y Tipos de Datos</h1>
-            <button 
-              className="btn-salir-practica-evaluacion"
-              onClick={salirModoPractica}
-              title="Salir del modo práctica"
-            >
-              🚪 Salir de Práctica
-            </button>
-          </div>
-          <div className="practica-meta-evaluacion">
-            <span className="preguntas-total">{preguntas.length} preguntas</span>
-            <span className="dificultad-promedio">Nivel: Mixto</span>
-            <span className="puntos-totales">100 puntos</span>
-          </div>
-        </header>
-
-        <div className="practica-lista-evaluacion">
-          {preguntas.map((pregunta, index) => (
-            <div key={pregunta.id} className="pregunta-completa-evaluacion">
-              <div className="pregunta-info-evaluacion">
-                <div className="pregunta-header-evaluacion">
-                  <div className="pregunta-titulo-evaluacion">
-                    <span className="pregunta-numero-evaluacion">#{pregunta.id}</span>
-                    <h3>{pregunta.pregunta}</h3>
-                    <span className={`dificultad-evaluacion ${pregunta.dificultad}`}>
-                      {pregunta.dificultad}
-                    </span>
-                  </div>
-                  <div className="pregunta-puntos-evaluacion">
-                    <span className="puntos-texto">10 puntos</span>
-                  </div>
-                </div>
-                <div className="pregunta-tipo-evaluacion">
-                  <span className="tipo-badge">{obtenerTipoTexto(pregunta.tipo)}</span>
-                </div>
-              </div>
-
-              <div className="pregunta-contenido-evaluacion">
-                {renderizarPregunta(pregunta)}
-                
-                {/* Explicación siempre visible en modo práctica */}
-                <div className="explicacion-practica">
-                  <div className="explicacion-header">
-                    <span className="explicacion-icono">💡</span>
-                    <strong>Explicación:</strong>
-                  </div>
-                  <p>{pregunta.explicacion}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="practica-info-general-evaluacion">
-          <div className="instrucciones-practica-evaluacion">
-            <h3>💡 Instrucciones del Modo Práctica</h3>
-            <ul>
-              <li>Responde cada pregunta a tu propio ritmo</li>
-              <li>Las respuestas correctas se muestran automáticamente</li>
-              <li>Lee las explicaciones para entender cada concepto</li>
-              <li>Usa este modo para aprender y prepararte para la evaluación</li>
-              <li>Puedes salir en cualquier momento y volver a la evaluación</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="evaluacion-contenido">
       <header className="evaluacion-header">
@@ -847,15 +772,15 @@ const Evaluacion_2 = () => {
             ⏱️ {formatearTiempo(tiempoTranscurrido)}
           </div>
         </div>
-        
+
         <div className="barra-progreso">
           <div className="progreso-texto">
             <span>Progreso: {estadisticas.respondidas} de {estadisticas.total}</span>
             <span>{estadisticas.porcentajeCompletado}%</span>
           </div>
           <div className="barra">
-            <div 
-              className="progreso-relleno" 
+            <div
+              className="progreso-relleno"
               style={{ width: `${estadisticas.porcentajeCompletado}%` }}
             ></div>
           </div>
@@ -867,33 +792,24 @@ const Evaluacion_2 = () => {
             return (
               <button
                 key={pregunta.id}
-                className={`indicador-pregunta ${
-                  respondida ? 'respondida' : ''
-                } ${
-                  index === preguntaActual ? 'activo' : ''
-                }`}
-                onClick={() => setPreguntaActual(index)}
+                className={`indicador-pregunta ${respondida ? 'respondida' : ''
+                  } ${index === preguntaActual ? 'activo' : ''
+                  }`}
+                onClick={() => irAPregunta(index)}
               >
                 {pregunta.id}
               </button>
             );
           })}
         </div>
-
-        <div className="modo-acciones">
-          <button className="btn-modo-practica" onClick={iniciarModoPractica}>
-            💡 Ir al Modo Práctica
-          </button>
-        </div>
       </header>
 
       <div className="preguntas-lista">
         {preguntas.map((pregunta, index) => (
-          <div 
-            key={pregunta.id} 
-            className={`pregunta-item ${
-              index === preguntaActual ? 'activa' : 'oculta'
-            }`}
+          <div
+            key={pregunta.id}
+            className={`pregunta-item ${index === preguntaActual ? 'activa' : 'oculta'
+              }`}
           >
             {renderizarPregunta(pregunta)}
           </div>
@@ -902,20 +818,20 @@ const Evaluacion_2 = () => {
 
       <div className="evaluacion-acciones">
         <div className="navegacion-preguntas">
-          <button 
-            className="btn-nav" 
+          <button
+            className="btn-nav"
             onClick={preguntaAnterior}
             disabled={preguntaActual === 0}
           >
             ← Anterior
           </button>
-          
+
           <div className="info-pregunta">
             {preguntaActual + 1} / {preguntas.length}
           </div>
 
-          <button 
-            className="btn-nav" 
+          <button
+            className="btn-nav"
             onClick={siguientePregunta}
             disabled={preguntaActual === preguntas.length - 1}
           >
@@ -923,7 +839,7 @@ const Evaluacion_2 = () => {
           </button>
         </div>
 
-        <button 
+        <button
           className="btn-enviar"
           onClick={enviarEvaluacion}
           disabled={estadisticas.respondidas === 0}

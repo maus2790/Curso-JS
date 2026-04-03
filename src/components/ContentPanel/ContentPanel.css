@@ -7,14 +7,16 @@
   border-bottom: 1px solid var(--color-borde);
   background: var(--fondo-panel);
   min-height: 50px;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-wrap: nowrap;
+  gap: 1rem;
 }
 
 .izquierda-encabezado-panel {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  flex: 0 0 calc(50% - 0.5rem);
+  width: calc(50% - 0.5rem);
+  overflow: hidden;
 }
 
 .izquierda-encabezado-panel h3 {
@@ -26,7 +28,8 @@
   display: flex;
   align-items: center;
   position: relative;
-  flex: 1;
+  flex: 0 0 calc(50% - 0.5rem);
+  width: calc(50% - 0.5rem);
   justify-content: flex-end;
   gap: 0.5rem;
 }
@@ -175,7 +178,7 @@
 
 .area-contenido {
   flex: 1;
-  padding: 0.8rem;
+  padding: 0.5rem;
   overflow-y: auto;
   width: 100%;
   height: 100%;
@@ -266,8 +269,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .nombre-tema-activo {
@@ -281,7 +289,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
+  flex: 1;
 }
 
 /* Estilos para el contenido de los temas */
@@ -309,7 +317,8 @@
   font-size: 0.9rem;
 }
 
-.area-contenido ol, .area-contenido ul {
+.area-contenido ol,
+.area-contenido ul {
   margin-left: 1.2rem;
   margin-bottom: 1rem;
   color: var(--texto-claro);
@@ -340,8 +349,8 @@
   margin-bottom: 0.5rem;
 }
 
-/* Sección de cuestionario */
-.seccion-cuestionario {
+/* Sección de evaluación */
+.seccion-evaluacion {
   background: rgba(59, 130, 246, 0.1);
   border: 1px solid var(--color-primario);
   border-radius: 8px;
@@ -349,13 +358,13 @@
   margin: 1rem 0;
 }
 
-.seccion-cuestionario h5 {
+.seccion-evaluacion h5 {
   color: var(--color-primario);
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
-.elemento-cuestionario {
+.elemento-evaluacion {
   background: var(--fondo-panel);
   border: 1px solid var(--color-borde);
   border-radius: 6px;
@@ -363,11 +372,11 @@
   margin-bottom: 0.75rem;
 }
 
-.elemento-cuestionario:last-child {
+.elemento-evaluacion:last-child {
   margin-bottom: 0;
 }
 
-.elemento-cuestionario p {
+.elemento-evaluacion p {
   margin: 0;
   font-size: 0.85rem;
   line-height: 1.4;
@@ -470,72 +479,70 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .encabezado-panel {
-    padding: 0.6rem 0.8rem;
-    gap: 0.3rem;
-  }
-  
   .pestañas-contenido {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .pestaña {
     margin-bottom: 0.2rem;
     font-size: 0.7rem;
     padding: 0.25rem 0.6rem;
   }
-  
+
   .boton-exportar-pdf {
     font-size: 0.7rem;
     padding: 0.25rem 0.6rem;
   }
-  
+
   .boton-menu {
     width: 26px;
     height: 26px;
     font-size: 0.8rem;
   }
-  
+
   .nombre-tema-activo {
     font-size: 0.8em;
-    max-width: 120px;
     margin-left: 10px;
   }
-  
+
   .izquierda-encabezado-panel h3 {
     font-size: 1.1rem;
   }
-  
+
   .ejemplo-codigo {
     font-size: 0.75rem;
     padding: 0.5rem;
   }
-  
+
   .area-contenido {
     padding: 0.6rem;
   }
 }
 
 @media (max-width: 480px) {
-  .encabezado-panel {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-  }
-  
-  .izquierda-encabezado-panel {
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .derecha-encabezado-panel {
-    justify-content: center;
-  }
-  
   .nombre-tema-activo {
-    max-width: none;
     margin-left: 10px;
     margin-right: 10px;
+  }
+}
+
+/* Print / Export PDF styles */
+@media print {
+  /* Ocultar elementos interactivos */
+  button, 
+  input, 
+  select, 
+  textarea, 
+  .btn-copiar, 
+  .boton-cargar-ejercicio,
+  .controles-evaluacion {
+    display: none !important;
+  }
+
+  /* Asegurar que el área de contenido muestre todo sin scroll */
+  .area-contenido {
+    overflow: visible !important;
+    height: auto !important;
   }
 }

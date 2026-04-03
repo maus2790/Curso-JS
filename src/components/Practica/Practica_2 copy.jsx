@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { toast } from 'react-hot-toast';
 import './Practicas.css';
 
 const Practica_2 = ({ onCargarCodigoAlEditor }) => {
-  const TEMA_ID = 2;
   const ejercicios = [
     {
       id: 1,
@@ -175,6 +173,7 @@ frutas.push("uva");`,
     let puntajeTotal = 0;
 
     ejercicios.forEach(ejercicio => {
+      // Solo sumar puntos si el ejercicio fue enviado correctamente y no se mostró la solución
       if (respuestasEnviadas[ejercicio.id] && !solucionConfirmada[ejercicio.id]) {
         puntajeTotal += ejercicio.puntos;
       }
@@ -184,6 +183,7 @@ frutas.push("uva");`,
   }, [respuestasEnviadas, solucionConfirmada, ejercicios]);
 
   const manejarRespuesta = useCallback((ejercicioId, respuesta) => {
+    // No permitir cambios si ya se envió correctamente o se mostró la solución
     if (respuestasEnviadas[ejercicioId] || solucionConfirmada[ejercicioId]) return;
 
     setRespuestas(prev => ({
@@ -193,20 +193,22 @@ frutas.push("uva");`,
   }, [respuestasEnviadas, solucionConfirmada]);
 
   const enviarRespuesta = useCallback((ejercicio) => {
+    // No evaluar si ya se envió correctamente
     if (respuestasEnviadas[ejercicio.id]) {
-      toast('¡Ya completaste este ejercicio correctamente!', { icon: '✅' });
+      alert('✅ Ya has completado este ejercicio correctamente.');
       return;
     }
 
+    // No evaluar si ya se mostró la solución
     if (solucionConfirmada[ejercicio.id]) {
-      toast('Este ejercicio ya no será calificado porque se mostró la solución.', { icon: '⚠️' });
+      alert('⚠️ Este ejercicio ya no será calificado porque se mostró la solución.');
       return;
     }
 
     const respuestaUsuario = respuestas[ejercicio.id];
 
     if (!respuestaUsuario || respuestaUsuario.some(r => !r || r.trim() === '')) {
-      toast.error('Por favor, completa todos los espacios antes de enviar.');
+      alert('Por favor, completa todos los espacios antes de enviar.');
       return;
     }
 
@@ -218,22 +220,21 @@ frutas.push("uva");`,
     });
 
     if (todasCorrectas) {
+      // Marcar como enviado correctamente
       setRespuestasEnviadas(prev => ({
         ...prev,
         [ejercicio.id]: true
       }));
-      toast.success(`¡Correcto! +${ejercicio.puntos} puntos`, { duration: 3000 });
-      window.dispatchEvent(new CustomEvent('recompensa-usuario', {
-        detail: { tipo: 'practica', aciertos: 1, temaId: TEMA_ID, esNuevaCompletitud: false }
-      }));
+      alert(`✅ ¡Correcto! Has ganado ${ejercicio.puntos} puntos.`);
     } else {
-      toast.error('Respuesta incorrecta. Intenta nuevamente.');
+      alert(`❌ Respuesta incorrecta. Intenta nuevamente.`);
     }
   }, [respuestas, respuestasEnviadas, solucionConfirmada]);
 
   const mostrarSolucionConAlerta = useCallback((ejercicioId) => {
+    // Si ya se envió correctamente, no permitir mostrar solución
     if (respuestasEnviadas[ejercicioId]) {
-      toast('¡Ya completaste este ejercicio! La solución está disponible para revisión.', { icon: '✅' });
+      alert('✅ Ya has completado este ejercicio correctamente. La solución está disponible para revisión.');
       setMostrarSoluciones(prev => ({
         ...prev,
         [ejercicioId]: true
@@ -249,28 +250,21 @@ frutas.push("uva");`,
       return;
     }
 
-    // En lugar de window.confirm, mostramos un toast de confirmación
-    toast((t) => (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <span style={{ fontWeight: 600 }}>⚠️ ¿Mostrar solución?</span>
-        <span style={{ fontSize: '0.85rem', opacity: 0.8 }}>Este ejercicio ya no será calificado.</span>
-        <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-          <button
-            onClick={() => {
-              toast.dismiss(t.id);
-              setSolucionConfirmada(prev => ({ ...prev, [ejercicioId]: true }));
-              setMostrarSoluciones(prev => ({ ...prev, [ejercicioId]: true }));
-              toast('Solución mostrada. El ejercicio ya no suma puntos.', { icon: '📚', duration: 2500 });
-            }}
-            style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 12px', cursor: 'pointer', fontWeight: 600 }}
-          >Ver solución</button>
-          <button
-            onClick={() => toast.dismiss(t.id)}
-            style={{ background: 'transparent', border: '1px solid currentColor', borderRadius: '6px', padding: '6px 12px', cursor: 'pointer' }}
-          >Cancelar</button>
-        </div>
-      </div>
-    ), { duration: 8000 });
+    const confirmar = window.confirm(
+      '⚠️ Si muestras la solución, este ejercicio ya no será calificado.\n\n¿Estás seguro de que quieres ver la solución?'
+    );
+
+    if (confirmar) {
+      setSolucionConfirmada(prev => ({
+        ...prev,
+        [ejercicioId]: true
+      }));
+      setMostrarSoluciones(prev => ({
+        ...prev,
+        [ejercicioId]: true
+      }));
+      alert('La solución se ha mostrado. Este ejercicio ya no suma puntos.');
+    }
   }, [respuestasEnviadas, solucionConfirmada]);
 
   const copiarCodigo = (codigo, id) => {
@@ -291,18 +285,21 @@ frutas.push("uva");`,
   };
 
   const totalPuntos = ejercicios.reduce((sum, ej) => sum + ej.puntos, 0);
-  const porcentajeCompletado = Math.round((puntajeAcumulado / totalPuntos) * 100) || 0;
+  const porcentajeCompletado = Math.round((puntajeAcumulado / totalPuntos) * 100);
 
   return (
     <div className="practica-contenido">
       <header className="practica-header">
+        {/* Primera fila - solo h1 */}
         <div className="practica-header-principal">
           <h1>Práctica: Variables y Tipos de Datos</h1>
         </div>
 
+        {/* Segunda fila - todo lo demás */}
         <div className="practica-meta">
           <span className="ejercicios">{ejercicios.length} ejercicios</span>
           <span className="dificultad">Principiante</span>
+          <span className="puntos">{totalPuntos} puntos totales</span>
           <div className="practica-puntaje-header">
             <span className="puntaje-icon">🏆</span>
             <span className="puntaje-actual">{puntajeAcumulado}</span>
@@ -348,32 +345,14 @@ frutas.push("uva");`,
                       className={`btn-copiar ${copiado === `ej-${ejercicio.id}` ? 'copiado' : ''}`}
                       onClick={() => copiarCodigo(ejercicio.codigo, `ej-${ejercicio.id}`)}
                     >
-                      {copiado === `ej-${ejercicio.id}` ? '✓' : '📋'} Copiar
+                      {copiado === `ej-${ejercicio.id}` ? '✓ Copiado' : '📋 Copiar'}
                     </button>
                     <button
                       className={`btn-solucion ${mostrarSoluciones[ejercicio.id] ? 'activo' : ''}`}
                       onClick={() => alternarSolucion(ejercicio.id)}
                     >
-                      {mostrarSoluciones[ejercicio.id] ? '👁️' : '💡'} {mostrarSoluciones[ejercicio.id] ? 'Ocultar' : 'Mostrar'} Solución
+                      {mostrarSoluciones[ejercicio.id] ? '👁️ Ocultar' : '💡 Mostrar'} Solución
                     </button>
-                    {!estaCompletado && !solucionMostrada && (
-                      <button
-                        className="btn-enviar-respuesta-header"
-                        onClick={() => enviarRespuesta(ejercicio)}
-                      >
-                        📨 Enviar
-                      </button>
-                    )}
-                    {estaCompletado && (
-                      <button className="btn-completado" disabled>
-                        ✓ Completado
-                      </button>
-                    )}
-                    {solucionMostrada && !estaCompletado && (
-                      <button className="btn-solucion-mostrada" disabled>
-                        ⚠️ Solución vista
-                      </button>
-                    )}
                   </div>
                 </div>
 
@@ -390,7 +369,7 @@ frutas.push("uva");`,
                           {index < ejercicio.espacios && (
                             <input
                               type="text"
-                              placeholder="___"
+                              placeholder={`Respuesta ${index + 1}`}
                               value={respuestaUsuario?.[index] || ''}
                               onChange={(e) => {
                                 const nuevasRespuestas = respuestaUsuario ? [...respuestaUsuario] : Array(ejercicio.espacios).fill('');
@@ -406,6 +385,29 @@ frutas.push("uva");`,
                     </div>
                   )}
                 </div>
+
+                {!mostrarSoluciones[ejercicio.id] && !estaCompletado && !solucionMostrada && (
+                  <div className="botones-accion-ejercicio">
+                    <button
+                      className="btn-enviar-respuesta"
+                      onClick={() => enviarRespuesta(ejercicio)}
+                    >
+                      📨 Enviar respuesta
+                    </button>
+                  </div>
+                )}
+
+                {solucionMostrada && !estaCompletado && (
+                  <div className="mensaje-solucion-mostrada">
+                    ⚠️ La solución fue mostrada. Este ejercicio ya no suma puntos.
+                  </div>
+                )}
+
+                {estaCompletado && (
+                  <div className="mensaje-completado">
+                    ✅ ¡Respuesta correcta! Has ganado {ejercicio.puntos} puntos.
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -418,9 +420,9 @@ frutas.push("uva");`,
           <ol>
             <li>Revisa cada ejercicio y su descripción</li>
             <li>Completa los espacios marcados con <code>___</code> en el código</li>
-            <li>Haz clic en <strong>"📨 Enviar"</strong> para verificar tu respuesta</li>
+            <li>Haz clic en <strong>"📨 Enviar respuesta"</strong> para verificar tu respuesta</li>
             <li>Si la respuesta es correcta, ganarás los puntos del ejercicio</li>
-            <li>Usa <strong>"💡 Mostrar Solución"</strong> si necesitas ayuda (perderás los puntos de ese ejercicio)</li>
+            <li>Usa <strong>"💡 Mostrar Solución"</strong> si necesitas ayuda (pero perderás los puntos de ese ejercicio)</li>
             <li>Los puntos se acumulan en tiempo real en la parte superior</li>
           </ol>
         </div>

@@ -1,5 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
+import {
+  BookOpen,
+  Wrench,
+  GraduationCap,
+  FileText,
+  File,
+  MoreVertical,
+  AlertCircle
+} from 'lucide-react';
 import './ContentPanel.css';
+import html2pdf from 'html2pdf.js';
 
 // Importaciones dinámicas de componentes de Guía
 const GuiaTema1 = React.lazy(() => import('../Guia/Guia_1'));
@@ -49,53 +60,53 @@ const GuiaTema43 = React.lazy(() => import('../Guia/Guia_43'));
 const GuiaTema44 = React.lazy(() => import('../Guia/Guia_44'));
 const GuiaTema45 = React.lazy(() => import('../Guia/Guia_45'));
 
-// Importaciones dinámicas de componentes de Cuestionario
-const CuestionarioTema1 = React.lazy(() => import('../Cuestionario/Cuestionario_1'));
-const CuestionarioTema2 = React.lazy(() => import('../Cuestionario/Cuestionario_2'));
-const CuestionarioTema3 = React.lazy(() => import('../Cuestionario/Cuestionario_3'));
+// Importaciones dinámicas de componentes de Evaluación
+const EvaluacionTema1 = React.lazy(() => import('../Evaluacion/Evaluacion_1'));
+const EvaluacionTema2 = React.lazy(() => import('../Evaluacion/Evaluacion_2'));
+const EvaluacionTema3 = React.lazy(() => import('../Evaluacion/Evaluacion_3'));
 // Continuar con los demás temas hasta 45...
-const CuestionarioTema4 = React.lazy(() => import('../Cuestionario/Cuestionario_4'));
-const CuestionarioTema5 = React.lazy(() => import('../Cuestionario/Cuestionario_5'));
-const CuestionarioTema6 = React.lazy(() => import('../Cuestionario/Cuestionario_6'));
-const CuestionarioTema7 = React.lazy(() => import('../Cuestionario/Cuestionario_7'));
-const CuestionarioTema8 = React.lazy(() => import('../Cuestionario/Cuestionario_8'));
-const CuestionarioTema9 = React.lazy(() => import('../Cuestionario/Cuestionario_9'));
-const CuestionarioTema10 = React.lazy(() => import('../Cuestionario/Cuestionario_10'));
-const CuestionarioTema11 = React.lazy(() => import('../Cuestionario/Cuestionario_11'));
-const CuestionarioTema12 = React.lazy(() => import('../Cuestionario/Cuestionario_12'));
-const CuestionarioTema13 = React.lazy(() => import('../Cuestionario/Cuestionario_13'));
-const CuestionarioTema14 = React.lazy(() => import('../Cuestionario/Cuestionario_14'));
-const CuestionarioTema15 = React.lazy(() => import('../Cuestionario/Cuestionario_15'));
-const CuestionarioTema16 = React.lazy(() => import('../Cuestionario/Cuestionario_16'));
-const CuestionarioTema17 = React.lazy(() => import('../Cuestionario/Cuestionario_17'));
-const CuestionarioTema18 = React.lazy(() => import('../Cuestionario/Cuestionario_18'));
-const CuestionarioTema19 = React.lazy(() => import('../Cuestionario/Cuestionario_19'));
-const CuestionarioTema20 = React.lazy(() => import('../Cuestionario/Cuestionario_20'));
-const CuestionarioTema21 = React.lazy(() => import('../Cuestionario/Cuestionario_21'));
-const CuestionarioTema22 = React.lazy(() => import('../Cuestionario/Cuestionario_22'));
-const CuestionarioTema23 = React.lazy(() => import('../Cuestionario/Cuestionario_23'));
-const CuestionarioTema24 = React.lazy(() => import('../Cuestionario/Cuestionario_24'));
-const CuestionarioTema25 = React.lazy(() => import('../Cuestionario/Cuestionario_25'));
-const CuestionarioTema26 = React.lazy(() => import('../Cuestionario/Cuestionario_26'));
-const CuestionarioTema27 = React.lazy(() => import('../Cuestionario/Cuestionario_27'));
-const CuestionarioTema28 = React.lazy(() => import('../Cuestionario/Cuestionario_28'));
-const CuestionarioTema29 = React.lazy(() => import('../Cuestionario/Cuestionario_29'));
-const CuestionarioTema30 = React.lazy(() => import('../Cuestionario/Cuestionario_30'));
-const CuestionarioTema31 = React.lazy(() => import('../Cuestionario/Cuestionario_31'));
-const CuestionarioTema32 = React.lazy(() => import('../Cuestionario/Cuestionario_32'));
-const CuestionarioTema33 = React.lazy(() => import('../Cuestionario/Cuestionario_33'));
-const CuestionarioTema34 = React.lazy(() => import('../Cuestionario/Cuestionario_34'));
-const CuestionarioTema35 = React.lazy(() => import('../Cuestionario/Cuestionario_35'));
-const CuestionarioTema36 = React.lazy(() => import('../Cuestionario/Cuestionario_36'));
-const CuestionarioTema37 = React.lazy(() => import('../Cuestionario/Cuestionario_37'));
-const CuestionarioTema38 = React.lazy(() => import('../Cuestionario/Cuestionario_38'));
-const CuestionarioTema39 = React.lazy(() => import('../Cuestionario/Cuestionario_39'));
-const CuestionarioTema40 = React.lazy(() => import('../Cuestionario/Cuestionario_40'));
-const CuestionarioTema41 = React.lazy(() => import('../Cuestionario/Cuestionario_41'));
-const CuestionarioTema42 = React.lazy(() => import('../Cuestionario/Cuestionario_42'));
-const CuestionarioTema43 = React.lazy(() => import('../Cuestionario/Cuestionario_43'));
-const CuestionarioTema44 = React.lazy(() => import('../Cuestionario/Cuestionario_44'));
-const CuestionarioTema45 = React.lazy(() => import('../Cuestionario/Cuestionario_45'));
+const EvaluacionTema4 = React.lazy(() => import('../Evaluacion/Evaluacion_4'));
+const EvaluacionTema5 = React.lazy(() => import('../Evaluacion/Evaluacion_5'));
+const EvaluacionTema6 = React.lazy(() => import('../Evaluacion/Evaluacion_6'));
+const EvaluacionTema7 = React.lazy(() => import('../Evaluacion/Evaluacion_7'));
+const EvaluacionTema8 = React.lazy(() => import('../Evaluacion/Evaluacion_8'));
+const EvaluacionTema9 = React.lazy(() => import('../Evaluacion/Evaluacion_9'));
+const EvaluacionTema10 = React.lazy(() => import('../Evaluacion/Evaluacion_10'));
+const EvaluacionTema11 = React.lazy(() => import('../Evaluacion/Evaluacion_11'));
+const EvaluacionTema12 = React.lazy(() => import('../Evaluacion/Evaluacion_12'));
+const EvaluacionTema13 = React.lazy(() => import('../Evaluacion/Evaluacion_13'));
+const EvaluacionTema14 = React.lazy(() => import('../Evaluacion/Evaluacion_14'));
+const EvaluacionTema15 = React.lazy(() => import('../Evaluacion/Evaluacion_15'));
+const EvaluacionTema16 = React.lazy(() => import('../Evaluacion/Evaluacion_16'));
+const EvaluacionTema17 = React.lazy(() => import('../Evaluacion/Evaluacion_17'));
+const EvaluacionTema18 = React.lazy(() => import('../Evaluacion/Evaluacion_18'));
+const EvaluacionTema19 = React.lazy(() => import('../Evaluacion/Evaluacion_19'));
+const EvaluacionTema20 = React.lazy(() => import('../Evaluacion/Evaluacion_20'));
+const EvaluacionTema21 = React.lazy(() => import('../Evaluacion/Evaluacion_21'));
+const EvaluacionTema22 = React.lazy(() => import('../Evaluacion/Evaluacion_22'));
+const EvaluacionTema23 = React.lazy(() => import('../Evaluacion/Evaluacion_23'));
+const EvaluacionTema24 = React.lazy(() => import('../Evaluacion/Evaluacion_24'));
+const EvaluacionTema25 = React.lazy(() => import('../Evaluacion/Evaluacion_25'));
+const EvaluacionTema26 = React.lazy(() => import('../Evaluacion/Evaluacion_26'));
+const EvaluacionTema27 = React.lazy(() => import('../Evaluacion/Evaluacion_27'));
+const EvaluacionTema28 = React.lazy(() => import('../Evaluacion/Evaluacion_28'));
+const EvaluacionTema29 = React.lazy(() => import('../Evaluacion/Evaluacion_29'));
+const EvaluacionTema30 = React.lazy(() => import('../Evaluacion/Evaluacion_30'));
+const EvaluacionTema31 = React.lazy(() => import('../Evaluacion/Evaluacion_31'));
+const EvaluacionTema32 = React.lazy(() => import('../Evaluacion/Evaluacion_32'));
+const EvaluacionTema33 = React.lazy(() => import('../Evaluacion/Evaluacion_33'));
+const EvaluacionTema34 = React.lazy(() => import('../Evaluacion/Evaluacion_34'));
+const EvaluacionTema35 = React.lazy(() => import('../Evaluacion/Evaluacion_35'));
+const EvaluacionTema36 = React.lazy(() => import('../Evaluacion/Evaluacion_36'));
+const EvaluacionTema37 = React.lazy(() => import('../Evaluacion/Evaluacion_37'));
+const EvaluacionTema38 = React.lazy(() => import('../Evaluacion/Evaluacion_38'));
+const EvaluacionTema39 = React.lazy(() => import('../Evaluacion/Evaluacion_39'));
+const EvaluacionTema40 = React.lazy(() => import('../Evaluacion/Evaluacion_40'));
+const EvaluacionTema41 = React.lazy(() => import('../Evaluacion/Evaluacion_41'));
+const EvaluacionTema42 = React.lazy(() => import('../Evaluacion/Evaluacion_42'));
+const EvaluacionTema43 = React.lazy(() => import('../Evaluacion/Evaluacion_43'));
+const EvaluacionTema44 = React.lazy(() => import('../Evaluacion/Evaluacion_44'));
+const EvaluacionTema45 = React.lazy(() => import('../Evaluacion/Evaluacion_45'));
 
 // Importaciones dinámicas de componentes de Práctica
 const PracticaTema1 = React.lazy(() => import('../Practica/Practica_1'));
@@ -144,6 +155,30 @@ const PracticaTema42 = React.lazy(() => import('../Practica/Practica_42'));
 const PracticaTema43 = React.lazy(() => import('../Practica/Practica_43'));
 const PracticaTema44 = React.lazy(() => import('../Practica/Practica_44'));
 const PracticaTema45 = React.lazy(() => import('../Practica/Practica_45'));
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.resetKey !== prevProps.resetKey) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
 
 const ContentPanel = ({
   altura,
@@ -201,53 +236,53 @@ const ContentPanel = ({
     45: GuiaTema45
   };
 
-  // Mapeo de componentes de Cuestionario por temaId
-  const componentesCuestionario = {
-    1: CuestionarioTema1,
-    2: CuestionarioTema2,
-    3: CuestionarioTema3,
-    4: CuestionarioTema4,
-    5: CuestionarioTema5,
-    6: CuestionarioTema6,
-    7: CuestionarioTema7,
-    8: CuestionarioTema8,
-    9: CuestionarioTema9,
-    10: CuestionarioTema10,
-    11: CuestionarioTema11,
-    12: CuestionarioTema12,
-    13: CuestionarioTema13,
-    14: CuestionarioTema14,
-    15: CuestionarioTema15,
-    16: CuestionarioTema16,
-    17: CuestionarioTema17,
-    18: CuestionarioTema18,
-    19: CuestionarioTema19,
-    20: CuestionarioTema20,
-    21: CuestionarioTema21,
-    22: CuestionarioTema22,
-    23: CuestionarioTema23,
-    24: CuestionarioTema24,
-    25: CuestionarioTema25,
-    26: CuestionarioTema26,
-    27: CuestionarioTema27,
-    28: CuestionarioTema28,
-    29: CuestionarioTema29,
-    30: CuestionarioTema30,
-    31: CuestionarioTema31,
-    32: CuestionarioTema32,
-    33: CuestionarioTema33,
-    34: CuestionarioTema34,
-    35: CuestionarioTema35,
-    36: CuestionarioTema36,
-    37: CuestionarioTema37,
-    38: CuestionarioTema38,
-    39: CuestionarioTema39,
-    40: CuestionarioTema40,
-    41: CuestionarioTema41,
-    42: CuestionarioTema42,
-    43: CuestionarioTema43,
-    44: CuestionarioTema44,
-    45: CuestionarioTema45
+  // Mapeo de componentes de Evaluación por temaId
+  const componentesEvaluacion = {
+    1: EvaluacionTema1,
+    2: EvaluacionTema2,
+    3: EvaluacionTema3,
+    4: EvaluacionTema4,
+    5: EvaluacionTema5,
+    6: EvaluacionTema6,
+    7: EvaluacionTema7,
+    8: EvaluacionTema8,
+    9: EvaluacionTema9,
+    10: EvaluacionTema10,
+    11: EvaluacionTema11,
+    12: EvaluacionTema12,
+    13: EvaluacionTema13,
+    14: EvaluacionTema14,
+    15: EvaluacionTema15,
+    16: EvaluacionTema16,
+    17: EvaluacionTema17,
+    18: EvaluacionTema18,
+    19: EvaluacionTema19,
+    20: EvaluacionTema20,
+    21: EvaluacionTema21,
+    22: EvaluacionTema22,
+    23: EvaluacionTema23,
+    24: EvaluacionTema24,
+    25: EvaluacionTema25,
+    26: EvaluacionTema26,
+    27: EvaluacionTema27,
+    28: EvaluacionTema28,
+    29: EvaluacionTema29,
+    30: EvaluacionTema30,
+    31: EvaluacionTema31,
+    32: EvaluacionTema32,
+    33: EvaluacionTema33,
+    34: EvaluacionTema34,
+    35: EvaluacionTema35,
+    36: EvaluacionTema36,
+    37: EvaluacionTema37,
+    38: EvaluacionTema38,
+    39: EvaluacionTema39,
+    40: EvaluacionTema40,
+    41: EvaluacionTema41,
+    42: EvaluacionTema42,
+    43: EvaluacionTema43,
+    44: EvaluacionTema44,
+    45: EvaluacionTema45
   };
 
   // Mapeo de componentes de Práctica por temaId
@@ -301,40 +336,28 @@ const ContentPanel = ({
 
   // Estado para controlar el menú desplegable
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [pestañasVisibles, setPestañasVisibles] = useState(true);
+  const [exportandoPDF, setExportandoPDF] = useState(false);
+  const [derechaWidth, setDerechaWidth] = useState(1000); // Por defecto un ancho amplio
   const contenedorPestañasRef = useRef(null);
-  const pestañasRef = useRef(null);
   const areaContenidoRef = useRef(null);
 
-  // Efecto para verificar el espacio disponible
+  // Efecto para verificar el espacio disponible con ResizeObserver
   useEffect(() => {
-    const verificarEspacio = () => {
-      if (!contenedorPestañasRef.current || !pestañasRef.current) return;
+    const contenedor = contenedorPestañasRef.current;
+    if (!contenedor) return;
 
-      const anchoContenedor = contenedorPestañasRef.current.offsetWidth;
-      const anchoPestañas = pestañasRef.current.scrollWidth;
-      const anchoBotonPDF = 80; // Ancho aproximado del botón PDF
-      const anchoBotonMenu = 32; // Ancho del botón de menú
-      const espacioNecesario = anchoPestañas + anchoBotonPDF + anchoBotonMenu + 30; // +30px de margen
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setDerechaWidth(entry.contentRect.width);
+      }
+    });
 
-      // Si no hay espacio suficiente, ocultar pestañas y mostrar menú
-      setPestañasVisibles(anchoContenedor >= espacioNecesario);
-    };
+    observer.observe(contenedor);
 
-    // Verificar espacio inmediatamente
-    verificarEspacio();
-
-    // Agregar un pequeño delay para asegurar que el DOM se haya actualizado
-    const timeoutId = setTimeout(verificarEspacio, 100);
-
-    // Event listeners
-    window.addEventListener('resize', verificarEspacio);
-    
     return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', verificarEspacio);
+      observer.disconnect();
     };
-  }, [temaActual, disposicion]);
+  }, []);
 
   // Cerrar menú al hacer clic fuera
   useEffect(() => {
@@ -350,57 +373,149 @@ const ContentPanel = ({
     };
   }, [menuAbierto]);
 
-  const pestañas = [
-    { id: 'guia', label: '📖 Guía' },
-    { id: 'evaluacion', label: '📝 Evaluacion' },
-    { id: 'practica', label: '🛠️ Práctica' }
+  const pestañasGrupales = [
+    { id: 'guia', label: 'Guía', minWidth: 65 },
+    { id: 'practica', label: 'Práctica', minWidth: 80 },
+    { id: 'evaluacion', label: 'Evaluacion', minWidth: 90 },
   ];
+
+  if (temaActual) {
+    pestañasGrupales.push({ id: 'pdf', label: 'PDF', minWidth: 60 });
+  }
+
+  // Calcular pestañas visibles dinámicamente según derechaWidth
+  const numTabs = pestañasGrupales.length;
+  let visibleCount = 0;
+
+  for (let i = numTabs; i >= 0; i--) {
+    let requiredWidth = 0;
+
+    // Sumar anchos de las pestañas a mostrar
+    for (let j = 0; j < i; j++) {
+      requiredWidth += pestañasGrupales[j].minWidth;
+    }
+
+    // Ancho estimado del botón de Menú (si no caben todas)
+    if (i < numTabs) {
+      requiredWidth += 32;
+    }
+
+    // Calcular e incluir los gaps de flexbox (0.5rem = 8px)
+    let totalElements = i + (i < numTabs ? 1 : 0);
+    let totalGaps = Math.max(0, totalElements - 1) * 8;
+
+    requiredWidth += totalGaps;
+
+    if (derechaWidth >= requiredWidth) {
+      visibleCount = i;
+      break;
+    }
+  }
+
+  const pestañasArrayVisibles = pestañasGrupales.slice(0, visibleCount);
+  const pestañasArrayOcultas = pestañasGrupales.slice(visibleCount);
 
   const manejarCambioPestaña = (pestañaId) => {
     setPestañaActiva(pestañaId);
     setMenuAbierto(false);
   };
 
-  // Exportar a PDF con el contenido actual
-  const exportarAPDF = () => {
-    if (!temaActual) return;
+  // Listener global para evaluaciones completadas
+  useEffect(() => {
+    const handleEvaluacionCompletada = () => {
+      if (temaActual) {
+        window.dispatchEvent(new CustomEvent('avanzar-tema', { detail: { temaIdActual: temaActual.id } }));
+      }
+    };
 
-    const tipoContenido = pestañaActiva === 'guia' ? 'Guía' : 
-                         pestañaActiva === 'evaluacion' ? 'evaluacion' : 'Práctica';
-    
-    // Obtener el contenido del área de contenido
-    const contenido = areaContenidoRef.current?.innerText || 
-                     `Contenido de ${tipoContenido} para ${temaActual.nombre}`;
+    window.addEventListener('evaluacion-completada', handleEvaluacionCompletada);
+    return () => window.removeEventListener('evaluacion-completada', handleEvaluacionCompletada);
+  }, [temaActual]);
 
-    const contenidoCompleto = `
-      ${temaActual.nombre} - ${tipoContenido}
-      
-      ${contenido}
-      
-      Exportado el: ${new Date().toLocaleDateString()}
-      Hora: ${new Date().toLocaleTimeString()}
-    `;
-    
-    // Crear y descargar el archivo
-    const blob = new Blob([contenidoCompleto], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${temaActual.nombre}-${tipoContenido}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    alert(`${tipoContenido} de "${temaActual.nombre}" exportado correctamente`);
+  // Exportar a PDF visual con html2pdf.js
+  const exportarAPDF = async () => {
+    if (!temaActual || !areaContenidoRef.current || exportandoPDF) return;
+
+    try {
+      setExportandoPDF(true);
+
+      const tipoContenido = pestañaActiva === 'guia' ? 'Guia' :
+        pestañaActiva === 'evaluacion' ? 'Evaluacion' : 'Practica';
+
+      // Limpiar el nombre para el archivo
+      const nombreLimpio = temaActual.nombre.replace(/[^a-zA-Z0-9]/g, '-');
+      const nombreArchivo = `${nombreLimpio}-${tipoContenido}.pdf`;
+
+      const elemento = areaContenidoRef.current;
+
+      // Buscar el color de fondo real iterando hacia los padres para heredar el modo Claro/Oscuro
+      let nodoActivo = elemento;
+      let colorFondoTema = '#ffffff';
+      while (nodoActivo && nodoActivo !== document) {
+        const bg = window.getComputedStyle(nodoActivo).backgroundColor;
+        if (bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          colorFondoTema = bg;
+          break;
+        }
+        nodoActivo = nodoActivo.parentNode;
+      }
+
+      const opciones = {
+        margin: 0.3,
+        filename: nombreArchivo,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 3,
+          useCORS: true,
+          letterRendering: true,
+          scrollY: 0,
+          backgroundColor: colorFondoTema,
+          onclone: (clonedDoc) => {
+            // Transfiere las clases principales ('modo-claro' / 'modo-oscuro') 
+            // que residen en el elemento .aplicacion hacia el body del clon
+            const appElement = document.querySelector('.aplicacion');
+            if (appElement) {
+              clonedDoc.body.className = appElement.className;
+            }
+          }
+        },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak: {
+          mode: ['css', 'legacy'],
+          avoid: ['.ejemplo-codigo', 'h4', 'h5', '.seccion-ejercicio', '.elemento-evaluacion', '.consejos-practica']
+        }
+      };
+
+      // Iniciar exportación
+      await html2pdf().set(opciones).from(elemento).save();
+      toast.success('PDF generado exitosamente', { icon: '📄', duration: 3000 });
+
+    } catch (error) {
+      console.error("Error al exportar PDF:", error);
+      toast.error('Hubo un error al generar el PDF.');
+    } finally {
+      setExportandoPDF(false);
+    }
   };
 
-  // Componente de contenido no disponible
+  // Componente para estados no disponibles (Fallback)
   const ComponenteNoDisponible = ({ tipo }) => (
     <div className="contenido-no-disponible">
-      <div className="icono-no-disponible">📄</div>
+      <div className="icono-no-disponible"><AlertCircle size={48} /></div>
       <h3>{tipo} no disponible</h3>
       <p>El contenido {tipo.toLowerCase()} para este tema aún no está disponible.</p>
+
+      <button
+        className="boton-cargar-ejercicio"
+        onClick={() => {
+          if (temaActual) {
+            window.dispatchEvent(new CustomEvent('avanzar-tema', { detail: { temaIdActual: temaActual.id } }));
+          }
+        }}
+        style={{ marginTop: '20px', padding: '10px 20px', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}
+      >
+        Marcar como completado y Continuar <Rocket size={18} />
+      </button>
     </div>
   );
 
@@ -417,6 +532,7 @@ const ContentPanel = ({
     if (!temaActual) {
       return (
         <div className="contenido-vacio">
+          <BookOpen size={48} className="icono-vacio" />
           <h3>Selecciona un tema para comenzar</h3>
           <p>Elige un tema del sidebar para ver su contenido educativo.</p>
         </div>
@@ -429,29 +545,35 @@ const ContentPanel = ({
       case 'guia':
         const ComponenteGuia = componentesGuia[temaId];
         return ComponenteGuia ? (
-          <React.Suspense fallback={<LoadingComponent />}>
-            <ComponenteGuia />
-          </React.Suspense>
+          <ErrorBoundary resetKey={`${temaId}-guia`} fallback={<ComponenteNoDisponible tipo="Guía" />}>
+            <React.Suspense fallback={<LoadingComponent />}>
+              <ComponenteGuia />
+            </React.Suspense>
+          </ErrorBoundary>
         ) : (
           <ComponenteNoDisponible tipo="Guía" />
         );
 
       case 'evaluacion':
-        const ComponenteCuestionario = componentesCuestionario[temaId];
-        return ComponenteCuestionario ? (
-          <React.Suspense fallback={<LoadingComponent />}>
-            <ComponenteCuestionario />
-          </React.Suspense>
+        const ComponenteEvaluacion = componentesEvaluacion[temaId];
+        return ComponenteEvaluacion ? (
+          <ErrorBoundary resetKey={`${temaId}-evaluacion`} fallback={<ComponenteNoDisponible tipo="Evaluación" />}>
+            <React.Suspense fallback={<LoadingComponent />}>
+              <ComponenteEvaluacion />
+            </React.Suspense>
+          </ErrorBoundary>
         ) : (
-          <ComponenteNoDisponible tipo="Cuestionario" />
+          <ComponenteNoDisponible tipo="Evaluación" />
         );
 
       case 'practica':
         const ComponentePractica = componentesPractica[temaId];
         return ComponentePractica ? (
-          <React.Suspense fallback={<LoadingComponent />}>
-            <ComponentePractica />
-          </React.Suspense>
+          <ErrorBoundary resetKey={`${temaId}-practica`} fallback={<ComponenteNoDisponible tipo="Práctica" />}>
+            <React.Suspense fallback={<LoadingComponent />}>
+              <ComponentePractica />
+            </React.Suspense>
+          </ErrorBoundary>
         ) : (
           <ComponenteNoDisponible tipo="Práctica" />
         );
@@ -459,9 +581,11 @@ const ContentPanel = ({
       default:
         const ComponenteDefault = componentesGuia[temaId];
         return ComponenteDefault ? (
-          <React.Suspense fallback={<LoadingComponent />}>
-            <ComponenteDefault />
-          </React.Suspense>
+          <ErrorBoundary resetKey={`${temaId}-default`} fallback={<ComponenteNoDisponible tipo="Guía" />}>
+            <React.Suspense fallback={<LoadingComponent />}>
+              <ComponenteDefault />
+            </React.Suspense>
+          </ErrorBoundary>
         ) : (
           <ComponenteNoDisponible tipo="Guía" />
         );
@@ -469,74 +593,102 @@ const ContentPanel = ({
   };
 
   return (
-    <div 
-      className="panel panel-contenido" 
+    <div
+      className="panel panel-contenido"
       style={{ height: altura }}
     >
       <div className="encabezado-panel">
         <div className="izquierda-encabezado-panel">
-          <h3>📚</h3>
+          <h3><BookOpen size={20} /></h3>
           {temaActual && (
             <span className="nombre-tema-activo">{temaActual.nombre}</span>
           )}
         </div>
-        
+
         <div className="derecha-encabezado-panel" ref={contenedorPestañasRef}>
-          {/* Pestañas normales (cuando hay espacio) */}
-          {pestañasVisibles ? (
-            <div className="pestañas-contenido" ref={pestañasRef}>
-              {pestañas.map(pestaña => (
-                <button 
-                  key={pestaña.id}
-                  className={`pestaña ${pestañaActiva === pestaña.id ? 'activa' : ''}`}
-                  onClick={() => manejarCambioPestaña(pestaña.id)}
-                >
-                  {pestaña.label}
-                </button>
-              ))}
+          {/* Pestañas normales visibles dinámicamente */}
+          {pestañasArrayVisibles.length > 0 && (
+            <div className="pestañas-contenido">
+              {pestañasArrayVisibles.map(pestaña => {
+                const Icono = pestaña.id === 'guia' ? BookOpen :
+                  pestaña.id === 'practica' ? Wrench :
+                    pestaña.id === 'evaluacion' ? GraduationCap : FileText;
+
+                if (pestaña.id === 'pdf') {
+                  return (
+                    <button
+                      key={pestaña.id}
+                      className="boton-exportar-pdf"
+                      onClick={exportarAPDF}
+                      title="Exportar a PDF"
+                      disabled={exportandoPDF}
+                    >
+                      {exportandoPDF ? <RefreshCw size={16} className="icono-progreso-anim" /> : <FileText size={16} />}
+                      {pestaña.label}
+                    </button>
+                  );
+                }
+
+                return (
+                  <button
+                    key={pestaña.id}
+                    className={`pestaña ${pestañaActiva === pestaña.id ? 'activa' : ''}`}
+                    onClick={() => manejarCambioPestaña(pestaña.id)}
+                  >
+                    <Icono size={16} />
+                    {pestaña.label}
+                  </button>
+                );
+              })}
             </div>
-          ) : null}
-          
-          {/* Botón PDF siempre visible */}
-          {temaActual && (
-            <button 
-              className="boton-exportar-pdf"
-              onClick={exportarAPDF}
-              title="Exportar a PDF"
-            >
-              📄 PDF
-            </button>
           )}
 
-          {/* Menú desplegable (cuando no hay espacio) - ahora a la derecha del PDF */}
-          {!pestañasVisibles && (
+          {/* Menú desplegable para pestañas ocultas */}
+          {pestañasArrayOcultas.length > 0 && (
             <div className="contenedor-menu-pestañas">
-              <button 
+              <button
                 className="boton-menu"
                 onClick={() => setMenuAbierto(!menuAbierto)}
                 title="Menú de pestañas"
               >
-                ⋮
+                <MoreVertical size={20} />
               </button>
-              
+
               {menuAbierto && (
                 <div className="menu-desplegable-pestañas">
-                  {pestañas.map(pestaña => (
-                    <button 
-                      key={pestaña.id}
-                      className={`opcion-menu ${pestañaActiva === pestaña.id ? 'activa' : ''}`}
-                      onClick={() => manejarCambioPestaña(pestaña.id)}
-                    >
-                      {pestaña.label}
-                    </button>
-                  ))}
+                  {pestañasArrayOcultas.map(pestaña => {
+                    if (pestaña.id === 'pdf') {
+                      return (
+                        <button
+                          key={pestaña.id}
+                          className="opcion-menu"
+                          onClick={() => {
+                            exportarAPDF();
+                            setMenuAbierto(false);
+                          }}
+                          disabled={exportandoPDF}
+                        >
+                          {exportandoPDF ? '⏳ Generando PDF...' : pestaña.label}
+                        </button>
+                      );
+                    }
+                    return (
+                      <button
+                        key={pestaña.id}
+                        className={`opcion-menu ${pestañaActiva === pestaña.id ? 'activa' : ''}`}
+                        onClick={() => manejarCambioPestaña(pestaña.id)}
+                      >
+                        {pestaña.label}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
           )}
         </div>
       </div>
-      
+
       <div className="contenido-panel">
         <div className="area-contenido" ref={areaContenidoRef}>
           {renderizarContenido()}
